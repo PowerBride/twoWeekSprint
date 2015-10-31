@@ -76,6 +76,11 @@ function bowerScripts() {
         //     './dist/js/bootstrap.js'
         //   ]
         // }, 
+        'semantic': {
+          main: [
+            './dist/semantic.js'
+          ]
+        },
         'font-awesome': {
           ignore: true
         }
@@ -87,7 +92,7 @@ function bowerScripts() {
 }
 
 function bowerStyles(){
-  return gulp.src([paths.bower + '/font-awesome/css/font-awesome.css']) //if bootstrap is used, add it in here as well
+  return gulp.src([paths.bower + '/font-awesome/css/font-awesome.css', paths.bower + '/semantic/dist/semantic.css']) //if bootstrap is used, add it in here as well
   .pipe(concat('vendor.css'))
   .pipe(minifyCSS())
   .pipe(gulp.dest(paths.dist+ '/styles'));

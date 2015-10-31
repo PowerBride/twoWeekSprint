@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "jquery": "~2.1.4",
-    "font-awesome": "~4.4.0"
+    "font-awesome": "~4.4.0",
+    "semantic": "semantic-ui#~2.1.4"
   }
 }
