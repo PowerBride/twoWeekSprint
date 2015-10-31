@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var hbs = require('hbs');
 
 //requiring db before routes to make sure everything loads in correctly
 require('./api/models/db');
@@ -13,9 +14,13 @@ var bluePrintModelRoutes = require('./api/routes/bluePrintModel');
 
 var app = express();
 
+//register partials
+hbs.registerPartials(__dirname + '/views/templates');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
