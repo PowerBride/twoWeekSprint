@@ -1,5 +1,3 @@
-console.log('test');
-
 // venues
   // venues obj
       // name

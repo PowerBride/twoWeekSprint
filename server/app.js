@@ -7,10 +7,10 @@ var bodyParser = require('body-parser');
 var hbs = require('hbs');
 
 //requiring db before routes to make sure everything loads in correctly
-require('./api/models/db');
+// require('./api/models/db');
 
 var routes = require('./routes/index');
-var bluePrintModelRoutes = require('./api/routes/bluePrintModel');
+// var bluePrintModelRoutes = require('./api/routes/bluePrintModel');
 
 var app = express();
 
@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../', 'dist')));
 
 app.use('/', routes);
-app.use('/api/blueprintmodel', bluePrintModelRoutes);
+// app.use('/api/blueprintmodel', bluePrintModelRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
