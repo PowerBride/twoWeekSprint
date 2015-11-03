@@ -16,6 +16,7 @@ var app = express();
 
 //register partials
 hbs.registerPartials(__dirname + '/views/templates');
+hbs.registerPartials(__dirname + '/views/menues');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
