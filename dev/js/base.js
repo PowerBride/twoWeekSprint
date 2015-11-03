@@ -1,6 +1,7 @@
 //menues 
 
 $(document).ready(function(){
+  var filts = new venueFilterFuncs();
 
   //on-click styles opacity 
   $('#menu-styles').on('click', function(){
@@ -24,6 +25,12 @@ $(document).ready(function(){
     }
     
   });
+
+
+  $('.styles-checkbox').change(function(){
+    console.log(filts.checkOptions('.styles-checkbox', 'checkbox'));
+  });
+
 
 
 });

@@ -1,6 +1,7 @@
 //menues 
 
 $(document).ready(function(){
+  var filts = new venueFilterFuncs();
 
   //on-click styles opacity 
   $('#menu-styles').on('click', function(){
@@ -24,6 +25,12 @@ $(document).ready(function(){
     }
     
   });
+
+
+  $('.styles-checkbox').change(function(){
+    console.log(filts.checkOptions('.styles-checkbox', 'checkbox'));
+  });
+
 
 
 });
@@ -92,6 +99,30 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
   return resArr;
 };
 
+function venueFilterFuncs(){
+}
+
+venueFilterFuncs.prototype.checkOptions = function(el, type){
+  //runs through all available options on the type
+  //checks what is checked
+  //returns arr of checked vals
+
+  var i = 0,
+      els = $(el),
+      arr = [];
+
+  if(type === 'checkbox'){
+
+    for(i; i < els.length; i++){
+      if(els[i].checked){
+        arr.push(els[i].value);
+      }
+    }
+
+  }
+
+  return arr;
+};
 // venues
   // venues obj
       // name
