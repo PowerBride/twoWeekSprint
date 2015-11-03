@@ -29,7 +29,17 @@ function Venues(){
   this.list = [];
   this.maxCap = [];
   this.styles = [];
+  this.available = [];
 }
+
+Venues.prototype.getVenuesByLocation = function(location, cb){
+    var that = this;
+    $.get('/api/locations/location/' + location, function(data){
+      that.available = data;
+      
+      cb();
+    });
+};
 
 function filters(list, arr, type1, filterList1, type2, filterList2, filter){
   var viewArr = [],

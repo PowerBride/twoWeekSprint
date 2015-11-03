@@ -10,6 +10,7 @@ var hbs = require('hbs');
 // require('./api/models/db');
 
 var routes = require('./routes/index');
+var locationRoutes = require('./api/routes/venues');
 // var bluePrintModelRoutes = require('./api/routes/bluePrintModel');
 
 var app = express();
@@ -32,6 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../', 'dist')));
 
 app.use('/', routes);
+app.use('/api/locations', locationRoutes);
 // app.use('/api/blueprintmodel', bluePrintModelRoutes);
 
 // catch 404 and forward to error handler
