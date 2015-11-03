@@ -1,7 +1,37 @@
 //menues 
 
 $(document).ready(function(){
-  var filts = new venueFilterFuncs();
+  var venFilter = new venueFilterFuncs();
+  var venues = new Venues();
+  var filter = new Filter();
+
+  var places = [
+    {
+      id: 'a',
+      maxCap: 150,
+      styles: ['beach', 'garden']
+    },
+    {
+      id: 'b',
+      maxCap: 200,
+      styles: ['beach']
+    },
+      {
+      id: 'c',
+      maxCap: 250,
+      styles: ['garden']
+    },
+      {
+      id: 'd',
+      maxCap: 100,
+      styles: ['beach', 'garden']
+    },
+    {
+      id: 'e',
+      maxCap: 100,
+      styles: ['garden']
+    }
+  ];
 
   //on-click styles opacity 
   $('#menu-styles').on('click', function(){
@@ -28,21 +58,26 @@ $(document).ready(function(){
 
 
     $('.styles-checkbox').change(function(){
-      console.log(filts.checkOptions('.styles-checkbox', 'styles'));
-      console.log(filts.checkOptions('.capacity-radio', 'capacity'));
+      venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
+      venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
 
+      console.log('filters', venues.styles, venues.maxCap);
+
+      filter.empty.call(venues, 'list');
+      filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
+      console.log('possible places', venues.list);
     });
 
     $('.capacity-radio').change(function(){
-      console.log(filts.checkOptions('.styles-checkbox', 'styles'));
-      console.log(filts.checkOptions('.capacity-radio', 'capacity'));
+      venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
+      venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
+
+      console.log('filters', venues.styles, venues.maxCap);
+
+      filter.empty.call(venues, 'list');
+      filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
+      console.log('possible places', venues.list);
     });
- 
-
-
-
-
-
 
 });
 //filter obj
@@ -89,9 +124,9 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
     for(j=0; j<filterList.length; j++){
       
       //check if maxCap is filter. 
-      //if so, add the searched obj to list if it's type is less than or equal to filter 
+      //if so, add the searched obj to list if it's type is less than or equal to filter or if the filter is 0 
       if(type === 'maxCap'){
-        if(arr[i][type] <= filterList[j]){
+        if(arr[i][type] <= filterList[j] || filterList[j] === 0){
           resArr.push(arr[i]);
         }
 
@@ -180,58 +215,26 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
     // 5. on filter select:
     //     rerun 3, 4
 
-var filter = new Filter();
+function Venues(){
+  this.list = [];
+  this.maxCap = [];
+  this.styles = [];
+}
 
-var venues = {
-  list: [],
-  maxCap: [],
-  styles: [],
-};
-
-var places = [
-  {
-    id: 'a',
-    maxCap: 100,
-    styles: ['rustic', 'charming']
-  },
-  {
-    id: 'b',
-    maxCap: 80,
-    styles: ['rustic']
-  },
-    {
-    id: 'c',
-    maxCap: 50,
-    styles: ['charming']
-  },
-    {
-    id: 'd',
-    maxCap: 60,
-    styles: ['rustic', 'charming']
-  },
-  {
-    id: 'e',
-    maxCap: 100,
-    styles: ['charming']
-  }
-];
-
-filter.setAttr.call(venues, 'maxCap', 100);
-filter.setAttr.call(venues, 'styles', 'rustic');
-
-function filters(list, arr, type1, filterList1, type2, filterList2){
+function filters(list, arr, type1, filterList1, type2, filterList2, filter){
   var viewArr = [],
       arr1 = [],
       i = 0;
 
   arr1 = filter.applyFilter(arr, type1, filterList1);
-  console.log(arr1, 'arr1');
   viewArr = filter.applyFilter(arr1, type2, filterList2);
-  console.log(viewArr, 'viewArr');
 
   for(i; i < viewArr.length; i++){
     filter.setAttr.call(this, list, viewArr[i]);
   }
 }
 
-filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles);
+// filter.setAttr.call(venues, 'maxCap', 100);
+// filter.setAttr.call(venues, 'styles', 'rustic');
+
+// filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles);

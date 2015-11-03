@@ -1,7 +1,37 @@
 //menues 
 
 $(document).ready(function(){
-  var filts = new venueFilterFuncs();
+  var venFilter = new venueFilterFuncs();
+  var venues = new Venues();
+  var filter = new Filter();
+
+  var places = [
+    {
+      id: 'a',
+      maxCap: 150,
+      styles: ['beach', 'garden']
+    },
+    {
+      id: 'b',
+      maxCap: 200,
+      styles: ['beach']
+    },
+      {
+      id: 'c',
+      maxCap: 250,
+      styles: ['garden']
+    },
+      {
+      id: 'd',
+      maxCap: 100,
+      styles: ['beach', 'garden']
+    },
+    {
+      id: 'e',
+      maxCap: 100,
+      styles: ['garden']
+    }
+  ];
 
   //on-click styles opacity 
   $('#menu-styles').on('click', function(){
@@ -28,20 +58,25 @@ $(document).ready(function(){
 
 
     $('.styles-checkbox').change(function(){
-      console.log(filts.checkOptions('.styles-checkbox', 'styles'));
-      console.log(filts.checkOptions('.capacity-radio', 'capacity'));
+      venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
+      venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
 
+      console.log('filters', venues.styles, venues.maxCap);
+
+      filter.empty.call(venues, 'list');
+      filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
+      console.log('possible places', venues.list);
     });
 
     $('.capacity-radio').change(function(){
-      console.log(filts.checkOptions('.styles-checkbox', 'styles'));
-      console.log(filts.checkOptions('.capacity-radio', 'capacity'));
+      venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
+      venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
+
+      console.log('filters', venues.styles, venues.maxCap);
+
+      filter.empty.call(venues, 'list');
+      filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
+      console.log('possible places', venues.list);
     });
- 
-
-
-
-
-
 
 });

@@ -25,58 +25,26 @@
     // 5. on filter select:
     //     rerun 3, 4
 
-var filter = new Filter();
+function Venues(){
+  this.list = [];
+  this.maxCap = [];
+  this.styles = [];
+}
 
-var venues = {
-  list: [],
-  maxCap: [],
-  styles: [],
-};
-
-var places = [
-  {
-    id: 'a',
-    maxCap: 100,
-    styles: ['rustic', 'charming']
-  },
-  {
-    id: 'b',
-    maxCap: 80,
-    styles: ['rustic']
-  },
-    {
-    id: 'c',
-    maxCap: 50,
-    styles: ['charming']
-  },
-    {
-    id: 'd',
-    maxCap: 60,
-    styles: ['rustic', 'charming']
-  },
-  {
-    id: 'e',
-    maxCap: 100,
-    styles: ['charming']
-  }
-];
-
-filter.setAttr.call(venues, 'maxCap', 100);
-filter.setAttr.call(venues, 'styles', 'rustic');
-
-function filters(list, arr, type1, filterList1, type2, filterList2){
+function filters(list, arr, type1, filterList1, type2, filterList2, filter){
   var viewArr = [],
       arr1 = [],
       i = 0;
 
   arr1 = filter.applyFilter(arr, type1, filterList1);
-  console.log(arr1, 'arr1');
   viewArr = filter.applyFilter(arr1, type2, filterList2);
-  console.log(viewArr, 'viewArr');
 
   for(i; i < viewArr.length; i++){
     filter.setAttr.call(this, list, viewArr[i]);
   }
 }
 
-filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles);
+// filter.setAttr.call(venues, 'maxCap', 100);
+// filter.setAttr.call(venues, 'styles', 'rustic');
+
+// filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles);

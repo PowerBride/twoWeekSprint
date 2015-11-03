@@ -42,9 +42,9 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
     for(j=0; j<filterList.length; j++){
       
       //check if maxCap is filter. 
-      //if so, add the searched obj to list if it's type is less than or equal to filter 
+      //if so, add the searched obj to list if it's type is less than or equal to filter or if the filter is 0 
       if(type === 'maxCap'){
-        if(arr[i][type] <= filterList[j]){
+        if(arr[i][type] <= filterList[j] || filterList[j] === 0){
           resArr.push(arr[i]);
         }
 
