@@ -5,6 +5,13 @@ $(document).ready(function(){
   var venues = new Venues();
   var filter = new Filter();
 
+  //handlebars
+  var source = '<div class="venues-venue" id="{{venues-venue-name}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""></div><h1>{{venues-venue-name}}</h1></div>';
+
+  var template = Handlebars.compile(source);
+
+  var context = '',
+      html;
 
   venues.getVenuesByLocation('sf', function(){
 
@@ -41,6 +48,16 @@ $(document).ready(function(){
       filter.empty.call(venues, 'list');
       filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
       console.log('possible places', venues.list);
+
+      $('#venues-select').html('');
+
+      for(var i = 0; i < venues.list.length; i++){
+        context = venues.contextualizeVenue(venues.list[i]);
+        
+        html = template(context);
+
+        $('#venues-select').append(html);
+      }
     });
 
     $('.capacity-radio').change(function(){
@@ -51,6 +68,15 @@ $(document).ready(function(){
 
       filter.empty.call(venues, 'list');
       filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
+
+      console.log('possible places', venues.list);
+
+      $('#venues-select').html('');
+
+      for(var i = 0; i < venues.list.length; i++){
+        context = venues.contextualizeVenue(venues.list[i]);
+        $('#venues-select').append(template(context));
+      }
     });
 
 
@@ -203,6 +229,18 @@ function Venues(){
   this.styles = [];
   this.available = [];
 }
+
+Venues.prototype.contextualizeVenue = function(data){
+
+  var context = {
+    'venues-venue-name': data.name,
+    'venues-venue-img': data.img,
+    'venues-venue-liked': data.liked
+  };
+
+
+  return context;
+};
 
 Venues.prototype.getVenuesByLocation = function(location, cb){
     var that = this;

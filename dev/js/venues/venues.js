@@ -32,6 +32,18 @@ function Venues(){
   this.available = [];
 }
 
+Venues.prototype.contextualizeVenue = function(data){
+
+  var context = {
+    'venues-venue-name': data.name,
+    'venues-venue-img': data.img,
+    'venues-venue-liked': data.liked
+  };
+
+
+  return context;
+};
+
 Venues.prototype.getVenuesByLocation = function(location, cb){
     var that = this;
     $.get('/api/locations/location/' + location, function(data){
