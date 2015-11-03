@@ -10,14 +10,14 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
       els = $(el),
       arr = [];
 
-  if(type === 'checkbox'){
-
-    for(i; i < els.length; i++){
-      if(els[i].checked){
+  for(i; i < els.length; i++){
+    if(els[i].checked){
+      if(type === 'radio'){
+        arr.push(parseInt(els[i].value, 10));
+      } else {
         arr.push(els[i].value);
       }
     }
-
   }
 
   return arr;

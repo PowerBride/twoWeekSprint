@@ -31,6 +31,10 @@ $(document).ready(function(){
     console.log(filts.checkOptions('.styles-checkbox', 'checkbox'));
   });
 
+  $('.capacity-radio').change(function(){
+    console.log(filts.checkOptions('.capacity-radio', 'radio'));
+  });
+
 
 
 });

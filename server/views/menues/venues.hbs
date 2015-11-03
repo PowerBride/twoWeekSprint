@@ -47,17 +47,31 @@
 
           <div class="right floated eight wide column">
             <div id="menu-capacity" class="ui item"> Capacity <i class="fa fa-angle-down padding-left"></i>
-              <div id="menu-capacity-options" class="">
-                <div class="dropdown-item checkbox-item">
-                  ping
-                </div>
-                <div class="dropdown-item checkbox-item">
-                  pong
-                </div>
               </div>
+              
+              <form id="menu-capacity-options" class="">
+                <div class="radio-item-holder">
+                  <input type="radio" name="radio-item" class="dropdown-item capacity-radio" value="0" checked> Not Sure
+                </div>
+              
+                <div class="radio-item-holder"> 
+                  <input type="radio" name="radio-item" class="dropdown-item capacity-radio" value="100"> Up to 100
+                </div>
 
+                <div class="radio-item-holder"> 
+                  <input type="radio" name="radio-item" class="dropdown-item capacity-radio" value="150"> Up to 150
+                </div>
 
-             </div>
+                <div class="radio-item-holder"> 
+                  <input type="radio" name="radio-item" class="dropdown-item capacity-radio" value="200"> Up to 200
+                </div>
+
+                <div class="radio-item-holder"> 
+                  <input type="radio" name="radio-item" class="dropdown-item capacity-radio" value="250"> Up to 250
+                </div>
+              </form>
+
+             
           </div>
 
 
