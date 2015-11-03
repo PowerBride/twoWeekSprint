@@ -4,11 +4,17 @@ $(document).ready(function(){
   var venFilter = new venueFilterFuncs();
   var venues = new Venues();
   var filter = new Filter();
+  var basics = new Basics();
 
   //handlebars
   var source = '<div class="venues-venue" id="{{venues-venue-name}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""></div><h1>{{venues-venue-name}}</h1></div>';
 
+  var source2 = $("#venues-venue-cover-template").html();
+
+  console.log(source2);
+
   var template = Handlebars.compile(source);
+
 
   var context = '',
       html;
@@ -49,6 +55,7 @@ $(document).ready(function(){
       filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
       console.log('possible places', venues.list);
 
+      basics.clean('#venues-select');
       $('#venues-select').html('');
 
       for(var i = 0; i < venues.list.length; i++){
@@ -68,18 +75,23 @@ $(document).ready(function(){
 
       filter.empty.call(venues, 'list');
       filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
-
       console.log('possible places', venues.list);
 
+      basics.clean('#venues-select');
       $('#venues-select').html('');
 
       for(var i = 0; i < venues.list.length; i++){
         context = venues.contextualizeVenue(venues.list[i]);
-        $('#venues-select').append(template(context));
+
+        console.log(context);
+        
+        html = template(context);
+
+        console.log(html);
+
+        $('#venues-select').append(html);
       }
     });
-
-
 
   });
 
@@ -88,6 +100,13 @@ $(document).ready(function(){
   
 
 });
+function Basics(){
+}
+
+Basics.prototype.clean = function(el){
+  $(el).html('');
+  return el;
+};
 //filter obj
 // var filter = {
 //   styles: [],
@@ -142,6 +161,7 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
       //if so, add the searched obj to list if anything in its type array === filter
       } else if (type === 'styles'){
         for(k=0; k< arr[i][type].length; k++){
+          console.log(arr[i][type][k]);
           if(arr[i][type][k] === filterList[j]){
             resArr.push(arr[i]);
           }
@@ -152,49 +172,6 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
 
   return resArr;
 };
-
-function venueFilterFuncs(){
-}
-
-venueFilterFuncs.prototype.selectAll = function(el){
-  var i = 0,
-  els = $(el),
-  arr = [];
-
-  for(i; i<els.length; i++){
-    arr.push(els[i].value);
-  }
-
-  return arr;
-};
-
-venueFilterFuncs.prototype.checkOptions = function(el, type){
-  //runs through all available options on the type
-  //checks what is checked
-  //returns arr of checked vals
-
-  var i = 0,
-      els = $(el),
-      arr = [];
-
-  for(i; i < els.length; i++){
-    if(els[i].checked){
-      if(type === 'capacity'){
-        arr.push(parseInt(els[i].value, 10));
-      } else {
-        arr.push(els[i].value);
-      }
-    }
-  }
-
-  //check if no filters selected for styles
-  if(type === 'styles' && arr.length === 0){
-    return this.selectAll(el);
-  }
-
-  return arr;
-};
-
 
 // venues
   // venues obj
@@ -242,6 +219,8 @@ Venues.prototype.contextualizeVenue = function(data){
   return context;
 };
 
+
+
 Venues.prototype.getVenuesByLocation = function(location, cb){
     var that = this;
     $.get('/api/locations/location/' + location, function(data){
@@ -257,7 +236,11 @@ function filters(list, arr, type1, filterList1, type2, filterList2, filter){
       i = 0;
 
   arr1 = filter.applyFilter(arr, type1, filterList1);
+
+  console.log('after ' + type1 + ', list is', arr1);
   viewArr = filter.applyFilter(arr1, type2, filterList2);
+
+    console.log('after ' + type2 + ', list is', viewArr);
 
   for(i; i < viewArr.length; i++){
     filter.setAttr.call(this, list, viewArr[i]);
@@ -268,3 +251,46 @@ function filters(list, arr, type1, filterList1, type2, filterList2, filter){
 // filter.setAttr.call(venues, 'styles', 'rustic');
 
 // filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles);
+
+function venueFilterFuncs(){
+}
+
+venueFilterFuncs.prototype.selectAll = function(el){
+  var i = 0,
+  els = $(el),
+  arr = [];
+
+  for(i; i<els.length; i++){
+    arr.push(els[i].value);
+  }
+
+  return arr;
+};
+
+venueFilterFuncs.prototype.checkOptions = function(el, type){
+  //runs through all available options on the type
+  //checks what is checked
+  //returns arr of checked vals
+
+  var i = 0,
+      els = $(el),
+      arr = [];
+
+  for(i; i < els.length; i++){
+    if(els[i].checked){
+      if(type === 'capacity'){
+        arr.push(parseInt(els[i].value, 10));
+      } else {
+        arr.push(els[i].value);
+      }
+    }
+  }
+
+  //check if no filters selected for styles
+  if(type === 'styles' && arr.length === 0){
+    return this.selectAll(el);
+  }
+
+  return arr;
+};
+

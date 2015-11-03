@@ -44,6 +44,8 @@ Venues.prototype.contextualizeVenue = function(data){
   return context;
 };
 
+
+
 Venues.prototype.getVenuesByLocation = function(location, cb){
     var that = this;
     $.get('/api/locations/location/' + location, function(data){
@@ -59,7 +61,11 @@ function filters(list, arr, type1, filterList1, type2, filterList2, filter){
       i = 0;
 
   arr1 = filter.applyFilter(arr, type1, filterList1);
+
+  console.log('after ' + type1 + ', list is', arr1);
   viewArr = filter.applyFilter(arr1, type2, filterList2);
+
+    console.log('after ' + type2 + ', list is', viewArr);
 
   for(i; i < viewArr.length; i++){
     filter.setAttr.call(this, list, viewArr[i]);

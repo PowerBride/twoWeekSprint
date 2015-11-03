@@ -52,6 +52,7 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
       //if so, add the searched obj to list if anything in its type array === filter
       } else if (type === 'styles'){
         for(k=0; k< arr[i][type].length; k++){
+          console.log(arr[i][type][k]);
           if(arr[i][type][k] === filterList[j]){
             resArr.push(arr[i]);
           }

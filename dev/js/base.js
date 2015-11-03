@@ -4,11 +4,17 @@ $(document).ready(function(){
   var venFilter = new venueFilterFuncs();
   var venues = new Venues();
   var filter = new Filter();
+  var basics = new Basics();
 
   //handlebars
   var source = '<div class="venues-venue" id="{{venues-venue-name}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""></div><h1>{{venues-venue-name}}</h1></div>';
 
+  var source2 = $("#venues-venue-cover-template").html();
+
+  console.log(source2);
+
   var template = Handlebars.compile(source);
+
 
   var context = '',
       html;
@@ -49,6 +55,7 @@ $(document).ready(function(){
       filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
       console.log('possible places', venues.list);
 
+      basics.clean('#venues-select');
       $('#venues-select').html('');
 
       for(var i = 0; i < venues.list.length; i++){
@@ -68,18 +75,23 @@ $(document).ready(function(){
 
       filter.empty.call(venues, 'list');
       filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
-
       console.log('possible places', venues.list);
 
+      basics.clean('#venues-select');
       $('#venues-select').html('');
 
       for(var i = 0; i < venues.list.length; i++){
         context = venues.contextualizeVenue(venues.list[i]);
-        $('#venues-select').append(template(context));
+
+        console.log(context);
+        
+        html = template(context);
+
+        console.log(html);
+
+        $('#venues-select').append(html);
       }
     });
-
-
 
   });
 
