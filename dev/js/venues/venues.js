@@ -25,25 +25,58 @@
     // 5. on filter select:
     //     rerun 3, 4
 
-//filter obj
-// var filter = {
-//   styles: [],
-//   capacity: 0,
-//   setParam: function(args){
-//   },
-//   checkParam: function(args){
-//     //check if number or arr
-//     if(typeof args === 'number'){
-//       return 'number';
-//     } else {
-//       return 'array';
-//     }
-//   }
-// };
+var filter = new Filter();
 
-// var number = 0;
-// var arr = ['this', 'is', 'an', 'array'];
+var venues = {
+  list: [],
+  maxCap: [],
+  styles: [],
+};
 
-// console.log(filter.checkParam(number));
-// console.log(filter.checkParam(arr));
+var places = [
+  {
+    id: 'a',
+    maxCap: 100,
+    styles: ['rustic', 'charming']
+  },
+  {
+    id: 'b',
+    maxCap: 80,
+    styles: ['rustic']
+  },
+    {
+    id: 'c',
+    maxCap: 50,
+    styles: ['charming']
+  },
+    {
+    id: 'd',
+    maxCap: 60,
+    styles: ['rustic', 'charming']
+  },
+  {
+    id: 'e',
+    maxCap: 100,
+    styles: ['charming']
+  }
+];
 
+filter.setAttr.call(venues, 'maxCap', 100);
+filter.setAttr.call(venues, 'styles', 'rustic');
+
+function filters(list, arr, type1, filterList1, type2, filterList2){
+  var viewArr = [],
+      arr1 = [],
+      i = 0;
+
+  arr1 = filter.applyFilter(arr, type1, filterList1);
+  console.log(arr1, 'arr1');
+  viewArr = filter.applyFilter(arr1, type2, filterList2);
+  console.log(viewArr, 'viewArr');
+
+  for(i; i < viewArr.length; i++){
+    filter.setAttr.call(this, list, viewArr[i]);
+  }
+}
+
+filters.call(venues, 'list', places, 'maxCap', venues.maxCap, 'styles', venues.styles);
