@@ -27,13 +27,20 @@ $(document).ready(function(){
   });
 
 
-  $('.styles-checkbox').change(function(){
-    console.log(filts.checkOptions('.styles-checkbox', 'checkbox'));
-  });
+    $('.styles-checkbox').change(function(){
+      console.log(filts.checkOptions('.styles-checkbox', 'styles'));
+      console.log(filts.checkOptions('.capacity-radio', 'capacity'));
 
-  $('.capacity-radio').change(function(){
-    console.log(filts.checkOptions('.capacity-radio', 'radio'));
-  });
+    });
+
+    $('.capacity-radio').change(function(){
+      console.log(filts.checkOptions('.styles-checkbox', 'styles'));
+      console.log(filts.checkOptions('.capacity-radio', 'capacity'));
+    });
+ 
+
+
+
 
 
 
@@ -106,6 +113,18 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
 function venueFilterFuncs(){
 }
 
+venueFilterFuncs.prototype.selectAll = function(el){
+  var i = 0,
+  els = $(el),
+  arr = [];
+
+  for(i; i<els.length; i++){
+    arr.push(els[i].value);
+  }
+
+  return arr;
+};
+
 venueFilterFuncs.prototype.checkOptions = function(el, type){
   //runs through all available options on the type
   //checks what is checked
@@ -117,7 +136,7 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
 
   for(i; i < els.length; i++){
     if(els[i].checked){
-      if(type === 'radio'){
+      if(type === 'capacity'){
         arr.push(parseInt(els[i].value, 10));
       } else {
         arr.push(els[i].value);
@@ -125,8 +144,15 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
     }
   }
 
+  //check if no filters selected for styles
+  if(type === 'styles' && arr.length === 0){
+    return this.selectAll(el);
+  }
+
   return arr;
 };
+
+
 // venues
   // venues obj
       // name

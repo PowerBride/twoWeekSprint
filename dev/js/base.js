@@ -27,13 +27,20 @@ $(document).ready(function(){
   });
 
 
-  $('.styles-checkbox').change(function(){
-    console.log(filts.checkOptions('.styles-checkbox', 'checkbox'));
-  });
+    $('.styles-checkbox').change(function(){
+      console.log(filts.checkOptions('.styles-checkbox', 'styles'));
+      console.log(filts.checkOptions('.capacity-radio', 'capacity'));
 
-  $('.capacity-radio').change(function(){
-    console.log(filts.checkOptions('.capacity-radio', 'radio'));
-  });
+    });
+
+    $('.capacity-radio').change(function(){
+      console.log(filts.checkOptions('.styles-checkbox', 'styles'));
+      console.log(filts.checkOptions('.capacity-radio', 'capacity'));
+    });
+ 
+
+
+
 
 
 
