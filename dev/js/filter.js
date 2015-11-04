@@ -52,7 +52,7 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
       //if so, add the searched obj to list if anything in its type array === filter
       } else if (type === 'styles'){
         for(k=0; k< arr[i][type].length; k++){
-          console.log(arr[i][type][k]);
+
           if(arr[i][type][k] === filterList[j]){
             resArr.push(arr[i]);
           }
@@ -63,3 +63,43 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
 
   return resArr;
 };
+
+  
+function createList(){
+  filter.empty.call(venues, 'list');
+  basics.clean('#venues-select');
+
+  venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
+  venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
+
+  var arr1 = [];
+  var arr2 = [];
+  var arr = [];
+  var i = 0;
+  var j = 0;
+  var k = 0;
+
+  arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
+
+  arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
+  
+  arr1.forEach(function(el){
+    arr2.forEach(function(bel){
+      console.log('hi');
+
+      if(el.name === bel.name){
+        console.log('hit!');
+        arr.push(el);
+      }
+    });
+  });
+
+  venues.list = arr;
+
+  for(k; k < arr.length; k++){
+    context = venues.contextualizeVenue(arr[k]);
+    html = template(context);
+
+    $('#venues-select').append(html);
+  }
+}

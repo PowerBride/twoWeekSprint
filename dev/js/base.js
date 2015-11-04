@@ -9,19 +9,16 @@ $(document).ready(function(){
   //handlebars
   var source = '<div class="venues-venue" id="{{venues-venue-name}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""></div><h1>{{venues-venue-name}}</h1></div>';
 
-  var source2 = $("#venues-venue-cover-template").html();
-
-  console.log(source2);
+  // var source2 = $("#venues-venue-cover-template").html();
 
   var template = Handlebars.compile(source);
-
 
   var context = '',
       html;
 
   venues.getVenuesByLocation('sf', function(){
     
-    start();
+    createList();
 
     //on-click styles opacity 
     $('#menu-styles').on('click', function(){
@@ -48,74 +45,50 @@ $(document).ready(function(){
 
 
     $('.styles-checkbox').change(function(){
-      venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
-      venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
-
-      console.log('filters', venues.styles, venues.maxCap);
-
-      filter.empty.call(venues, 'list');
-      filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
-      console.log('possible places', venues.list);
-
-      basics.clean('#venues-select');
-      $('#venues-select').html('');
-
-      for(var i = 0; i < venues.list.length; i++){
-        context = venues.contextualizeVenue(venues.list[i]);
-        
-        html = template(context);
-
-        $('#venues-select').append(html);
-      }
+      createList();
     });
 
     $('.capacity-radio').change(function(){
-      venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
-      venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
-
-      console.log('filters', venues.styles, venues.maxCap);
-
-      filter.empty.call(venues, 'list');
-      filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
-      console.log('possible places', venues.list);
-
-      basics.clean('#venues-select');
-      $('#venues-select').html('');
-
-      for(var i = 0; i < venues.list.length; i++){
-        context = venues.contextualizeVenue(venues.list[i]);
-
-        console.log(context);
-        
-        html = template(context);
-
-        console.log(html);
-
-        $('#venues-select').append(html);
-      }
+      createList();
     });
 
   });
 
   
-function start(){
+function createList(){
+  filter.empty.call(venues, 'list');
+  basics.clean('#venues-select');
+
   venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
   venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
 
-  filter.empty.call(venues, 'list');
-  filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
+  var arr1 = [];
+  var arr2 = [];
+  var arr = [];
+  var i = 0;
+  var j = 0;
+  var k = 0;
 
-  basics.clean('#venues-select');
-  $('#venues-select').html('');
+  arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
 
-  for(var i = 0; i < venues.list.length; i++){
-    context = venues.contextualizeVenue(venues.list[i]);
+  arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
+  
+  arr1.forEach(function(el){
+    arr2.forEach(function(bel){
+      console.log('hi');
 
-    console.log(context);
-    
+      if(el.name === bel.name){
+        console.log('hit!');
+        arr.push(el);
+      }
+    });
+  });
+
+  venues.list = arr;
+
+  for(k; k < arr.length; k++){
+    context = venues.contextualizeVenue(arr[k]);
     html = template(context);
-
-    console.log(html);
 
     $('#venues-select').append(html);
   }
