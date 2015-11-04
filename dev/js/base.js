@@ -75,7 +75,7 @@ $(document).ready(function(){
     arr1.forEach(function(el){
       arr2.forEach(function(bel){
 
-        if(el.name === bel.name){
+        if(el._id === bel._id){
           arr.push(el);
         }
       });
