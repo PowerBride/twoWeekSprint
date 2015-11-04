@@ -7,23 +7,23 @@ var entries = [
     {
       _id: '1',
       name: 'GrandView Pavillion',
-      img: 'http://loremflickr.com/320/240/dog',
-      liked: false,
+      img: 'http://loremflickr.com/300/300/dog',
+      liked: true,
       maxCap: 250,
       styles: ['beach', 'garden']
     },
     {
       _id: '2',
       name: 'Barlow Events',
-      img: 'http://loremflickr.com/320/240/nature',
-      liked: false,
+      img: 'http://loremflickr.com/300/300/taylorswift',
+      liked: true,
       maxCap: 150,
       styles: ['barn', 'garden']
     },
     {
       _id: '3',
       name: 'Tank18 Winery',
-      img: 'http://loremflickr.com/320/240/winery',
+      img: 'http://loremflickr.com/300/300/winery',
       liked: false,
       maxCap: 250,
       styles: ['barn', 'backyard']
@@ -31,7 +31,7 @@ var entries = [
     {
       _id: '4',
       name: 'Winemaker Studios',
-      img: 'http://loremflickr.com/320/240/cat',
+      img: 'http://loremflickr.com/300/300/cat',
       liked: false,
       maxCap: 100,
       styles: ['beach', 'countryclub', 'backyard']
@@ -39,7 +39,7 @@ var entries = [
     {
       _id: '5',
       name: 'Hamlin Mansion',
-      img: 'http://loremflickr.com/320/240/mansion',
+      img: 'http://loremflickr.com/300/300/mansion',
       liked: false,
       maxCap: 250,
       styles: ['backyard', 'garden', 'countryclub']
@@ -47,7 +47,7 @@ var entries = [
     {
       _id: '6',
       name: 'Firehouse 8',
-      img: 'http://loremflickr.com/320/240/house',
+      img: 'http://loremflickr.com/300/300/house',
       liked: false,
       maxCap: 300,
       styles: ['countryclub', 'barn']
@@ -55,7 +55,7 @@ var entries = [
     {
       _id: '7',
       name: 'Singe Barrel House',
-      img: 'http://loremflickr.com/320/240/bird',
+      img: 'http://loremflickr.com/300/300/bird',
       liked: false,
       maxCap: 100,
       styles: ['cityhall', 'garden']
@@ -63,7 +63,7 @@ var entries = [
     {
       _id: '8',
       name: 'Ocean Beach',
-      img: 'http://loremflickr.com/320/240/beach',
+      img: 'http://loremflickr.com/300/300/beach',
       liked: false,
       maxCap: 550,
       styles: ['beach', 'garden']
@@ -71,7 +71,7 @@ var entries = [
     {
       _id: '9',
       name: 'Faker Island',
-      img: 'http://loremflickr.com/320/240/island',
+      img: 'http://loremflickr.com/300/300/island',
       liked: false,
       maxCap: 250,
       styles: ['beach', 'garden', 'backyard']
@@ -79,7 +79,7 @@ var entries = [
     {
       _id: '10',
       name: 'Tomer Barn',
-      img: 'http://loremflickr.com/320/240/penguin',
+      img: 'http://loremflickr.com/300/300/penguin',
       liked: false,
       maxCap: 300,
       styles: ['barn', 'garden']

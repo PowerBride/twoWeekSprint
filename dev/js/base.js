@@ -6,7 +6,7 @@ $(document).ready(function(){
   var filter = new Filter();
 
   //handlebars
-  var source = '<div class="venues-venue" id="{{venues-venue-name}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""></div><h1>{{venues-venue-name}}</h1></div>';
+  var source = '<div class="venues-venue" id="{{venues-venue-name}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""><div id="{{venues-venue-id}}" class="venue-heart"><i class="fa fa-heart-o fa-2x"></i></div></div><h1>{{venues-venue-name}}</h1></div>';
 
   // var source2 = $("#venues-venue-cover-template").html();
 
@@ -67,6 +67,8 @@ $(document).ready(function(){
     var i = 0;
     var j = 0;
     var k = 0;
+    var $venue;
+    var $i;
 
     arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
 
@@ -84,10 +86,29 @@ $(document).ready(function(){
     venues.list = arr;
 
     for(k; k < arr.length; k++){
+      
       context = venues.contextualizeVenue(arr[k]);
       html = template(context);
 
       $('#venues-select').append(html);
+
+      $venue = $('#'+arr[k]._id);
+      $i = $venue.children();
+
+      if(arr[k].liked === true){
+        toggleLiked($i);
+      }
+
+      $i.on('click', function(){
+        var $this = $(this);
+        var id = $this.parent().attr('id');
+        venues.setLiked(id, function(){
+          console.log('hi!');
+          toggleLiked($this);
+        });
+        
+        
+      });
     }
   }
 

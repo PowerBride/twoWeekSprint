@@ -12,3 +12,13 @@ function checkObjInArray(el, arr){
   }
   return false;
 }
+
+function toggleClass($el, cls){
+  $el.toggleClass(cls);
+}
+
+function toggleLiked($el){
+  toggleClass($el, 'liked');
+  toggleClass($el, 'fa-heart-o');
+  toggleClass($el, 'fa-heart');
+}
