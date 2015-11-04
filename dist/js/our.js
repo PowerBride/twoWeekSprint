@@ -20,6 +20,8 @@ $(document).ready(function(){
       html;
 
   venues.getVenuesByLocation('sf', function(){
+    
+    start();
 
     //on-click styles opacity 
     $('#menu-styles').on('click', function(){
@@ -96,7 +98,28 @@ $(document).ready(function(){
   });
 
   
+function start(){
+  venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
+  venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
 
+  filter.empty.call(venues, 'list');
+  filters.call(venues, 'list', venues.available, 'maxCap', venues.maxCap, 'styles', venues.styles, filter);
+
+  basics.clean('#venues-select');
+  $('#venues-select').html('');
+
+  for(var i = 0; i < venues.list.length; i++){
+    context = venues.contextualizeVenue(venues.list[i]);
+
+    console.log(context);
+    
+    html = template(context);
+
+    console.log(html);
+
+    $('#venues-select').append(html);
+  }
+}
   
 
 });
@@ -289,6 +312,8 @@ function filters(list, arr, type1, filterList1, type2, filterList2, filter){
     filter.setAttr.call(this, list, viewArr[i]);
   }
 }
+
+
 
 // filter.setAttr.call(venues, 'maxCap', 100);
 // filter.setAttr.call(venues, 'styles', 'rustic');

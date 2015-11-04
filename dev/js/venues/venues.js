@@ -72,6 +72,8 @@ function filters(list, arr, type1, filterList1, type2, filterList2, filter){
   }
 }
 
+
+
 // filter.setAttr.call(venues, 'maxCap', 100);
 // filter.setAttr.call(venues, 'styles', 'rustic');
 
