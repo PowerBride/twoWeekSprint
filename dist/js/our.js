@@ -99,6 +99,10 @@ $(document).ready(function(){
         toggleLiked($i);
       }
 
+
+      //SETTING LIKED
+      //need to rewrite this once user has been created to also create a backend api call to add to like list
+
       $i.on('click', function(){
         var $this = $(this);
         var id = $this.parent().attr('id');
