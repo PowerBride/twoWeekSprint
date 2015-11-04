@@ -107,11 +107,9 @@ $(document).ready(function(){
         var $this = $(this);
         var id = $this.parent().attr('id');
         venues.setLiked(id, function(){
-          console.log('hi!');
           toggleLiked($this);
         });
-        
-        
+               
       });
     }
   }
