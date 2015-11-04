@@ -4,7 +4,6 @@ $(document).ready(function(){
   var venFilter = new venueFilterFuncs();
   var venues = new Venues();
   var filter = new Filter();
-  var basics = new Basics();
 
   //handlebars
   var source = '<div class="venues-venue" id="{{venues-venue-name}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""></div><h1>{{venues-venue-name}}</h1></div>';
@@ -54,55 +53,59 @@ $(document).ready(function(){
 
   });
 
-  
-function createList(){
-  filter.empty.call(venues, 'list');
-  basics.clean('#venues-select');
 
-  venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
-  venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
+  function createList(){
+    filter.empty.call(venues, 'list');
+    clean('#venues-select');
 
-  var arr1 = [];
-  var arr2 = [];
-  var arr = [];
-  var i = 0;
-  var j = 0;
-  var k = 0;
+    venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
+    venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
 
-  arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
+    var arr1 = [];
+    var arr2 = [];
+    var arr = [];
+    var i = 0;
+    var j = 0;
+    var k = 0;
 
-  arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
-  
-  arr1.forEach(function(el){
-    arr2.forEach(function(bel){
-      console.log('hi');
+    arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
 
-      if(el.name === bel.name){
-        console.log('hit!');
-        arr.push(el);
-      }
+    arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
+    
+    arr1.forEach(function(el){
+      arr2.forEach(function(bel){
+
+        if(el.name === bel.name){
+          arr.push(el);
+        }
+      });
     });
-  });
 
-  venues.list = arr;
+    venues.list = arr;
 
-  for(k; k < arr.length; k++){
-    context = venues.contextualizeVenue(arr[k]);
-    html = template(context);
+    for(k; k < arr.length; k++){
+      context = venues.contextualizeVenue(arr[k]);
+      html = template(context);
 
-    $('#venues-select').append(html);
+      $('#venues-select').append(html);
+    }
   }
-}
-  
 
 });
-function Basics(){
-}
-
-Basics.prototype.clean = function(el){
+function clean(el){
   $(el).html('');
   return el;
-};
+}
+
+function checkObjInArray(el, arr){
+  var i = 0;
+  for(i; i < arr.length; i++){
+    if(arr[i]._id === el._id){
+      return true;
+    }
+  }
+  return false;
+}
 //filter obj
 // var filter = {
 //   styles: [],
@@ -141,7 +144,8 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
   var i = 0,
       j,
       k,
-      resArr = [];
+      resArr = [],
+      check = true;
 
   for(i; i < arr.length; i++){
     for(j=0; j<filterList.length; j++){
@@ -150,7 +154,12 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
       //if so, add the searched obj to list if it's type is less than or equal to filter or if the filter is 0 
       if(type === 'maxCap'){
         if(arr[i][type] <= filterList[j] || filterList[j] === 0){
-          resArr.push(arr[i]);
+
+          check = checkObjInArray(arr[i], resArr);
+
+          if(!check){
+            resArr.push(arr[i]);
+          }
         }
 
       //check if styles is filter.
@@ -159,7 +168,13 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
         for(k=0; k< arr[i][type].length; k++){
 
           if(arr[i][type][k] === filterList[j]){
-            resArr.push(arr[i]);
+
+            check = checkObjInArray(arr[i], resArr);
+
+            if(!check){
+              resArr.push(arr[i]);
+            }
+            
           }
         }
       }
@@ -170,44 +185,7 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
 };
 
   
-function createList(){
-  filter.empty.call(venues, 'list');
-  basics.clean('#venues-select');
 
-  venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
-  venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
-
-  var arr1 = [];
-  var arr2 = [];
-  var arr = [];
-  var i = 0;
-  var j = 0;
-  var k = 0;
-
-  arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
-
-  arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
-  
-  arr1.forEach(function(el){
-    arr2.forEach(function(bel){
-      console.log('hi');
-
-      if(el.name === bel.name){
-        console.log('hit!');
-        arr.push(el);
-      }
-    });
-  });
-
-  venues.list = arr;
-
-  for(k; k < arr.length; k++){
-    context = venues.contextualizeVenue(arr[k]);
-    html = template(context);
-
-    $('#venues-select').append(html);
-  }
-}
 
 function venueFilterFuncs(){
 }

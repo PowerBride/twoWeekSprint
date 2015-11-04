@@ -4,7 +4,6 @@ $(document).ready(function(){
   var venFilter = new venueFilterFuncs();
   var venues = new Venues();
   var filter = new Filter();
-  var basics = new Basics();
 
   //handlebars
   var source = '<div class="venues-venue" id="{{venues-venue-name}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""></div><h1>{{venues-venue-name}}</h1></div>';
@@ -54,45 +53,42 @@ $(document).ready(function(){
 
   });
 
-  
-function createList(){
-  filter.empty.call(venues, 'list');
-  basics.clean('#venues-select');
 
-  venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
-  venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
+  function createList(){
+    filter.empty.call(venues, 'list');
+    clean('#venues-select');
 
-  var arr1 = [];
-  var arr2 = [];
-  var arr = [];
-  var i = 0;
-  var j = 0;
-  var k = 0;
+    venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
+    venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
 
-  arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
+    var arr1 = [];
+    var arr2 = [];
+    var arr = [];
+    var i = 0;
+    var j = 0;
+    var k = 0;
 
-  arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
-  
-  arr1.forEach(function(el){
-    arr2.forEach(function(bel){
-      console.log('hi');
+    arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
 
-      if(el.name === bel.name){
-        console.log('hit!');
-        arr.push(el);
-      }
+    arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
+    
+    arr1.forEach(function(el){
+      arr2.forEach(function(bel){
+
+        if(el.name === bel.name){
+          arr.push(el);
+        }
+      });
     });
-  });
 
-  venues.list = arr;
+    venues.list = arr;
 
-  for(k; k < arr.length; k++){
-    context = venues.contextualizeVenue(arr[k]);
-    html = template(context);
+    for(k; k < arr.length; k++){
+      context = venues.contextualizeVenue(arr[k]);
+      html = template(context);
 
-    $('#venues-select').append(html);
+      $('#venues-select').append(html);
+    }
   }
-}
-  
 
 });
