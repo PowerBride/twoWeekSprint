@@ -317,6 +317,16 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
 };
 
 
+$('document').ready(function(){
+
+  $('.ui.sticky')
+    .sticky()
+  ;
+
+  $('.singleVenue-carousel').slick();
+
+});
+
 function Venues(){
   this.list = [];
   this.maxCap = [];

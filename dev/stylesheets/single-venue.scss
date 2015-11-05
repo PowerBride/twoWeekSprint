@@ -1,0 +1,39 @@
+$background: white;
+$body: #f2f2f2;
+
+
+.singleVenueBackground{
+  background: $body;
+  .venueHeader {
+    #venueHeader-title{
+      background: $background;
+      padding: 30px 20px 20px;
+      margin-top: -20px;
+      h1 {
+        font-size: 1.35em;
+        font-weight: 300;
+        display: inline;
+      }
+      .back {
+        text-align: right;
+        display: inline;
+        float: right;
+      }
+    }
+  }
+  .carousel{
+    height: 300px;
+    .slick-prev:before {
+      content: '<';
+      color: red;
+      font-size: 60px;
+    }
+    .slick-next:before {
+      content: '>';
+      color: red;
+      font-size: 60px;
+    }
+  }
+
+}
+

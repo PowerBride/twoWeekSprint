@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var locationRoutes = require('./api/routes/venues');
+var venuesRoutes = require('./routes/venues');
 // var bluePrintModelRoutes = require('./api/routes/bluePrintModel');
 
 var app = express();
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../', 'dist')));
 
 app.use('/', routes);
+app.use('/venues', venuesRoutes);
 app.use('/api/locations', locationRoutes);
 // app.use('/api/blueprintmodel', bluePrintModelRoutes);
 
