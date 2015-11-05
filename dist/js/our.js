@@ -51,6 +51,11 @@ $(document).ready(function(){
       createList();
     });
 
+    $('input[type=checkbox]').on('click', function(){
+      var $this = $(this);
+      $this.parent().toggleClass('checked-label').toggleClass('unchecked-label');
+    });
+
   });
 
 
