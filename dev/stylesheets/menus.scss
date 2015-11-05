@@ -61,6 +61,7 @@ $font: rgb(100,100,100);
   }
 
   #menu-styles-options{
+    display: none;
     opacity: 0;
     position: absolute;
     top: 14px;
@@ -97,6 +98,7 @@ $font: rgb(100,100,100);
     border-radius: 5px !important;
   }
   #menu-capacity-options{
+    display: none;
     opacity: 0;
     position: absolute;
     top: 14px;

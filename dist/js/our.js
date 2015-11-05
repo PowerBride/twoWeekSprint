@@ -25,10 +25,10 @@ $(document).ready(function(){
       var $this = $(this);
 
       if(opac === '1'){
-        $('#menu-styles-options').css('opacity', '0');
+        $('#menu-styles-options').css('opacity', '0').css('display', 'none');
         $this.css('opacity', '1');
       } else {
-        $('#menu-styles-options').css('opacity', '1');
+        $('#menu-styles-options').css('opacity', '1').css('display', 'block');
         $this.css('opacity', '0');
       }
     });
@@ -39,10 +39,10 @@ $(document).ready(function(){
 
       if(opac === '1'){
         $('#menu-styles').css('opacity', '0');
-        $this.css('opacity', '1');
+        $this.css('opacity', '1').css('display', 'block');
       } else {
         $('#menu-styles').css('opacity', '1');
-        $this.css('opacity', '0');
+        $this.css('opacity', '0').css('display', 'none');
       }
     
     });
@@ -52,10 +52,10 @@ $(document).ready(function(){
       var $this = $(this);
 
       if(opac === '1'){
-        $('#menu-capacity-options').css('opacity', '0');
+        $('#menu-capacity-options').css('opacity', '0').css('display', 'none');
         $this.css('opacity', '1');
       } else {
-        $('#menu-capacity-options').css('opacity', '1');
+        $('#menu-capacity-options').css('opacity', '1').css('display', 'block');
         $this.css('opacity', '0');
       }
       
@@ -67,10 +67,10 @@ $(document).ready(function(){
 
       if(opac === '1'){
         $('#menu-capacity').css('opacity', '0');
-        $this.css('opacity', '1');
+        $this.css('opacity', '1').css('display', 'block');
       } else {
         $('#menu-capacity').css('opacity', '1');
-        $this.css('opacity', '0');
+        $this.css('opacity', '0').css('display', 'none');
       }
       
     });
