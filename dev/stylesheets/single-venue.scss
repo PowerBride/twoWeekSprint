@@ -1,39 +1,79 @@
 $background: white;
 $body: #f2f2f2;
-
+$red: #e0656d;
 
 .singleVenueBackground{
+  margin-top: -50px;
   background: $body;
-  .venueHeader {
-    #venueHeader-title{
-      background: $background;
-      padding: 30px 20px 20px;
-      margin-top: -20px;
-      h1 {
-        font-size: 1.35em;
-        font-weight: 300;
-        display: inline;
-      }
-      .back {
-        text-align: right;
-        display: inline;
-        float: right;
-      }
-    }
-  }
-  .carousel{
-    height: 300px;
-    .slick-prev:before {
-      content: '<';
-      color: red;
-      font-size: 60px;
-    }
-    .slick-next:before {
-      content: '>';
-      color: red;
-      font-size: 60px;
-    }
-  }
+  .singleVenue{
 
+    margin: 0 40px;
+    background: $background;
+
+    
+    .venueHeader {
+      #venueHeader-title{
+
+        background: $background;
+        padding: 20px 20px 20px;
+        margin-top: 0px;
+        h1 {
+          font-size: 1.35em;
+          font-weight: 300;
+          display: inline;
+        }
+        .back {
+          text-align: right;
+          display: inline;
+          float: right;
+        }
+      }
+    }
+    .carousel{
+      img {
+        width: 100%;
+        height: 450px;
+      }
+      height: 450px;
+      .slick-prev {
+        left: 25px;
+        z-index: 100;
+        &:before {
+          content: '<';
+          color: $red;
+          font-size: 60px;
+        }
+      }
+
+      .slick-next{
+        right: 40px;
+        z-index: 10;
+        &:before {
+          content: '>';
+          color: $red;
+          font-size: 60px;
+        }
+      }
+    }
+    .singleVenue-desc {
+      margin: 0 20px;
+      background: $background;
+      .singleVenue-menu {
+        border-bottom: 0px !important;
+        .active {
+          color: $red !important;
+          font-weight: 300 !important;
+          border-bottom-color: $body !important;
+        }
+      }
+      .description {
+        padding: 40px;
+        margin: 0 -6%;
+        background: $body;
+        border-radius: 10px;
+      }
+    }
+    
+ }
 }
 
