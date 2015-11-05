@@ -1,9 +1,12 @@
 $red: #e0656d;
+$background: #fff;
+$font: rgb(100,100,100);
 
 .checked-label {
   label{
     display: inline-block;
     background: $red;
+    border: 1px solid $red;
     width: 16px;
     height: 16px;
     border-radius: 2px;
@@ -15,10 +18,27 @@ $red: #e0656d;
   }
 }
 
-.unchecked-label {
+.checked-radio {
   label{
     display: inline-block;
     background: $red;
+    border: 1px solid $red;
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    &:before{
+      content: "";
+      color: white;
+      margin: 0 0 0 2px;
+    } 
+  }
+}
+
+.unchecked-label {
+  label{
+    display: inline-block;
+    border: 1px solid $red;
+    background: white;
     width: 16px;
     height: 16px;
     border-radius: 2px;
@@ -32,6 +52,7 @@ $red: #e0656d;
 
 .fixed-secondary {
   background: white !important;
+  color: $font;
 
   #menu-styles{
   }
@@ -42,18 +63,24 @@ $red: #e0656d;
     -webkit-transition: all 0.5s ease-in-out;
     opacity: 0;
     position: absolute;
-    top: 40px;
+    top: 50px;
     left: 30px;
-    width: 120px;
-    background: #d3d3d3;
+    width: 150px;
+    background: $background;
+    border: 1px solid $font;
 
     input[type=checkbox] {
       display: none;
     }
 
     .checkbox-item-holder {
+      line-height: 1.15em;
       padding: 10px;
       display: block;
+      .optionTitle{
+        font-size: 1.1em;
+        padding: 0 5px;
+      }
     }
     
     
@@ -62,19 +89,24 @@ $red: #e0656d;
   #menu-capacity{
   }
   #menu-capacity-options{
-      transition: all 0.5s ease-in-out;
-      -moz-transition: all 0.5s ease-in-out;
-      -webkit-transition: all 0.5s ease-in-out;
-      opacity: 0;
-      position: absolute;
-      top: 40px;
-      left: 20px;
-      width: 120px;
-      background: #d3d3d3;
+    transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    opacity: 0;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    width: 150px;
+    background: $background;
+    border: 1px solid $font;
 
-      .radio-item-holder {
-        padding: 10px;
-        display: inline-block;
-      }
+    input[type=radio] {
+      display: none;
     }
+
+    .radio-item-holder {
+      padding: 10px;
+      display: inline-block;
+    }
+  }
 }

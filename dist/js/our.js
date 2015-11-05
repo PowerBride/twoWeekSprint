@@ -56,6 +56,22 @@ $(document).ready(function(){
       $this.parent().toggleClass('checked-label').toggleClass('unchecked-label');
     });
 
+    $('input[type=radio]').on('click', function(){
+      var $this = $(this);
+      
+      $('input[type=radio]').each(function(){
+        var $that = $(this);
+      
+        var $el = $that.parent();
+        if($el.hasClass('checked-radio') && !$that.is($this)){
+           $el.toggleClass('checked-radio').toggleClass('unchecked-label');
+        }
+      });
+
+
+      $this.parent().toggleClass('checked-radio').toggleClass('unchecked-label');
+    });
+
   });
 
 
