@@ -8,6 +8,7 @@ var entries = [
       _id: '1',
       name: 'GrandView Pavillion',
       img: 'http://loremflickr.com/300/300/dog',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: true,
       maxCap: 250,
       styles: ['beach', 'garden']
@@ -16,6 +17,7 @@ var entries = [
       _id: '2',
       name: 'Barlow Events',
       img: 'http://loremflickr.com/300/300/music',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: true,
       maxCap: 150,
       styles: ['barn', 'garden']
@@ -24,6 +26,7 @@ var entries = [
       _id: '3',
       name: 'Tank18 Winery',
       img: 'http://loremflickr.com/300/300/winery',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: false,
       maxCap: 250,
       styles: ['barn', 'backyard']
@@ -32,6 +35,7 @@ var entries = [
       _id: '4',
       name: 'Winemaker Studios',
       img: 'http://loremflickr.com/300/300/cat',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: false,
       maxCap: 100,
       styles: ['beach', 'countryclub', 'backyard']
@@ -40,6 +44,7 @@ var entries = [
       _id: '5',
       name: 'Hamlin Mansion',
       img: 'http://loremflickr.com/300/300/mansion',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: false,
       maxCap: 250,
       styles: ['backyard', 'garden', 'countryclub']
@@ -48,6 +53,7 @@ var entries = [
       _id: '6',
       name: 'Firehouse 8',
       img: 'http://loremflickr.com/300/300/house',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: false,
       maxCap: 300,
       styles: ['countryclub', 'barn']
@@ -56,6 +62,7 @@ var entries = [
       _id: '7',
       name: 'Singe Barrel House',
       img: 'http://loremflickr.com/300/300/bird',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: false,
       maxCap: 100,
       styles: ['cityhall', 'garden']
@@ -64,6 +71,7 @@ var entries = [
       _id: '8',
       name: 'Ocean Beach',
       img: 'http://loremflickr.com/300/300/beach',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: false,
       maxCap: 550,
       styles: ['beach', 'garden']
@@ -72,6 +80,7 @@ var entries = [
       _id: '9',
       name: 'Faker Island',
       img: 'http://loremflickr.com/300/300/island',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: false,
       maxCap: 250,
       styles: ['beach', 'garden', 'backyard']
@@ -80,6 +89,7 @@ var entries = [
       _id: '10',
       name: 'Tomer Barn',
       img: 'http://loremflickr.com/300/300/penguin',
+      imgs: ['http://loremflickr.com/300/300/dog', 'http://loremflickr.com/300/300/cat', 'http://loremflickr.com/300/300/taylorswift'],
       liked: false,
       maxCap: 300,
       styles: ['barn', 'garden']
