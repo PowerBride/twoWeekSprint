@@ -22,22 +22,55 @@ $(document).ready(function(){
     //on-click styles opacity 
     $('#menu-styles').on('click', function(){
       var opac = $('#menu-styles-options').css('opacity');
+      var $this = $(this);
 
       if(opac === '1'){
         $('#menu-styles-options').css('opacity', '0');
+        $this.css('opacity', '1');
       } else {
         $('#menu-styles-options').css('opacity', '1');
+        $this.css('opacity', '0');
       }
-      
+    });
+
+    $('#menu-styles-options').on('click', function(){
+      var opac = $('#menu-styles').css('opacity');
+      var $this = $(this);
+
+      if(opac === '1'){
+        $('#menu-styles').css('opacity', '0');
+        $this.css('opacity', '1');
+      } else {
+        $('#menu-styles').css('opacity', '1');
+        $this.css('opacity', '0');
+      }
+    
     });
 
     $('#menu-capacity').on('click', function(){
       var opac = $('#menu-capacity-options').css('opacity');
+      var $this = $(this);
 
       if(opac === '1'){
         $('#menu-capacity-options').css('opacity', '0');
+        $this.css('opacity', '1');
       } else {
         $('#menu-capacity-options').css('opacity', '1');
+        $this.css('opacity', '0');
+      }
+      
+    });
+
+    $('#menu-capacity-options').on('click', function(){
+      var opac = $('#menu-capacity').css('opacity');
+      var $this = $(this);
+
+      if(opac === '1'){
+        $('#menu-capacity').css('opacity', '0');
+        $this.css('opacity', '1');
+      } else {
+        $('#menu-capacity').css('opacity', '1');
+        $this.css('opacity', '0');
       }
       
     });

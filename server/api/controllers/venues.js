@@ -15,7 +15,7 @@ var entries = [
     {
       _id: '2',
       name: 'Barlow Events',
-      img: 'http://loremflickr.com/300/300/taylorswift',
+      img: 'http://loremflickr.com/300/300/music',
       liked: true,
       maxCap: 150,
       styles: ['barn', 'garden']
