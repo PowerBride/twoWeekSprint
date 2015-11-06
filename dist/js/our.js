@@ -6,7 +6,7 @@ $(document).ready(function(){
   var filter = new Filter();
 
   //handlebars
-  var source = '<div class="venues-venue" id="{{venues-venue-name}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""><div id="{{venues-venue-id}}" class="venue-heart"><i class="fa fa-heart-o fa-2x"></i></div></div><h1>{{venues-venue-name}}</h1></div>';
+  var source = '<a href="/venues/{{venues-venue-src}}"><div class="venues-venue" id="{{venues-venue-src}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""><div id="{{venues-venue-id}}" class="venue-heart"><i class="fa fa-heart-o fa-2x"></i></div></div><h1>{{venues-venue-name}}</h1></div></a>';
 
   // var source2 = $("#venues-venue-cover-template").html();
 
@@ -326,52 +326,6 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
 };
 
 
-function Venues(){
-  this.list = [];
-  this.maxCap = [];
-  this.styles = [];
-  this.available = [];
-}
-
-Venues.prototype.contextualizeVenue = function(data){
-
-  var context = {
-    'venues-venue-name': data.name,
-    'venues-venue-img': data.img,
-    'venues-venue-liked': data.liked,
-    'venues-venue-id': data._id
-  };
-
-
-  return context;
-};
-
-Venues.prototype.getVenuesByLocation = function(location, cb){
-    var that = this;
-    $.get('/api/venues/location/' + location, function(data){
-      that.available = data;
-      
-      cb();
-    });
-};
-
-Venues.prototype.setLiked = function(id, cb){
-  var i = 0;
-  var arr = this.available;
-  
-  for(i; i < arr.length; i++){
-    if(arr[i]._id === id){
-      arr[i].liked = !arr[i].liked;
-      cb();
-    }
-
-  }
-
-
-};
-
-
-
 function Venue(){
   this.name = '';
   this._id = '';
@@ -417,6 +371,18 @@ Venue.prototype.setImgs = function(el){
     i++;
   }
   });
+};
+
+Venue.prototype.setDetails = function(el){
+
+};
+
+Venue.prototype.setReviews = function(el){
+
+};
+
+Venue.prototype.setCalendar = function(el){
+
 };
 $('document').ready(function(){
   var $singleVenueMenu = $('.singleVenue-menu'),
@@ -469,3 +435,50 @@ $('document').ready(function(){
   $('.singleVenue-carousel').slick();
 
 });
+
+function Venues(){
+  this.list = [];
+  this.maxCap = [];
+  this.styles = [];
+  this.available = [];
+}
+
+Venues.prototype.contextualizeVenue = function(data){
+
+  var context = {
+    'venues-venue-name': data.name,
+    'venues-venue-src': data.src,
+    'venues-venue-img': data.img,
+    'venues-venue-liked': data.liked,
+    'venues-venue-id': data._id
+  };
+
+
+  return context;
+};
+
+Venues.prototype.getVenuesByLocation = function(location, cb){
+    var that = this;
+    $.get('/api/venues/location/' + location, function(data){
+      that.available = data;
+      
+      cb();
+    });
+};
+
+Venues.prototype.setLiked = function(id, cb){
+  var i = 0;
+  var arr = this.available;
+  
+  for(i; i < arr.length; i++){
+    if(arr[i]._id === id){
+      arr[i].liked = !arr[i].liked;
+      cb();
+    }
+
+  }
+
+
+};
+
+

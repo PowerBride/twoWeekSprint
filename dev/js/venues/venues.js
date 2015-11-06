@@ -9,6 +9,7 @@ Venues.prototype.contextualizeVenue = function(data){
 
   var context = {
     'venues-venue-name': data.name,
+    'venues-venue-src': data.src,
     'venues-venue-img': data.img,
     'venues-venue-liked': data.liked,
     'venues-venue-id': data._id

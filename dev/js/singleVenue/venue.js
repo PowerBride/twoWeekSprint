@@ -44,3 +44,15 @@ Venue.prototype.setImgs = function(el){
   }
   });
 };
+
+Venue.prototype.setDetails = function(el){
+
+};
+
+Venue.prototype.setReviews = function(el){
+
+};
+
+Venue.prototype.setCalendar = function(el){
+
+};
