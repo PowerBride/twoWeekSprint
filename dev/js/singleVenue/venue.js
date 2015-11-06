@@ -25,6 +25,9 @@ Venue.prototype.setPageName = function(el){
   $title.html(this.name);
 };
 
+
+//rewrite so that it can hold more than just three images
+// do so by appending an actual image div rather than just changing the source of the ones in it
 Venue.prototype.setImgs = function(el){
   var $carousel = $(el);
   var i = this.imgs.length - 1;

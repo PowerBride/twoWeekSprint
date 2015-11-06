@@ -283,6 +283,49 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
   
 
 
+function venueFilterFuncs(){
+}
+
+venueFilterFuncs.prototype.selectAll = function(el){
+  var i = 0,
+  els = $(el),
+  arr = [];
+
+  for(i; i<els.length; i++){
+    arr.push(els[i].value);
+  }
+
+  return arr;
+};
+
+venueFilterFuncs.prototype.checkOptions = function(el, type){
+  //runs through all available options on the type
+  //checks what is checked
+  //returns arr of checked vals
+
+  var i = 0,
+      els = $(el),
+      arr = [];
+
+  for(i; i < els.length; i++){
+    if(els[i].checked){
+      if(type === 'capacity'){
+        arr.push(parseInt(els[i].value, 10));
+      } else {
+        arr.push(els[i].value);
+      }
+    }
+  }
+
+  //check if no filters selected for styles
+  if(type === 'styles' && arr.length === 0){
+    return this.selectAll(el);
+  }
+
+  return arr;
+};
+
+
 function Venue(){
   this.name = '';
   this._id = '';
@@ -310,6 +353,9 @@ Venue.prototype.setPageName = function(el){
   $title.html(this.name);
 };
 
+
+//rewrite so that it can hold more than just three images
+// do so by appending an actual image div rather than just changing the source of the ones in it
 Venue.prototype.setImgs = function(el){
   var $carousel = $(el);
   var i = this.imgs.length - 1;
@@ -420,49 +466,6 @@ $('document').ready(function(){
     });
   });
 });
-function venueFilterFuncs(){
-}
-
-venueFilterFuncs.prototype.selectAll = function(el){
-  var i = 0,
-  els = $(el),
-  arr = [];
-
-  for(i; i<els.length; i++){
-    arr.push(els[i].value);
-  }
-
-  return arr;
-};
-
-venueFilterFuncs.prototype.checkOptions = function(el, type){
-  //runs through all available options on the type
-  //checks what is checked
-  //returns arr of checked vals
-
-  var i = 0,
-      els = $(el),
-      arr = [];
-
-  for(i; i < els.length; i++){
-    if(els[i].checked){
-      if(type === 'capacity'){
-        arr.push(parseInt(els[i].value, 10));
-      } else {
-        arr.push(els[i].value);
-      }
-    }
-  }
-
-  //check if no filters selected for styles
-  if(type === 'styles' && arr.length === 0){
-    return this.selectAll(el);
-  }
-
-  return arr;
-};
-
-
 function Venues(){
   this.list = [];
   this.maxCap = [];

@@ -88,6 +88,11 @@ function bowerScripts() {
         },
         'font-awesome': {
           ignore: true
+        },
+        'jquery-ui': {
+          main: [
+            './ui/datepicker.js'
+          ]
         }
       }
     }))
@@ -97,7 +102,7 @@ function bowerScripts() {
 }
 
 function bowerStyles(){
-  return gulp.src([paths.bower + '/font-awesome/css/font-awesome.css', paths.bower + '/semantic/dist/semantic.css', paths.bower + '/slick-carousel/slick/slick.css', paths.bower + '/slick-carousel/slick/slick-theme.css']) //if bootstrap is used, add it in here as well
+  return gulp.src([paths.bower + '/font-awesome/css/font-awesome.css', paths.bower + '/semantic/dist/semantic.css', paths.bower + '/slick-carousel/slick/slick.css', paths.bower + '/slick-carousel/slick/slick-theme.css', paths.bower + '/jquery-ui/themes/base/datepicker.css']) //if bootstrap is used, add it in here as well
   .pipe(concat('vendor.css'))
   .pipe(minifyCSS())
   .pipe(gulp.dest(paths.dist+ '/styles'));
