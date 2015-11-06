@@ -6,7 +6,7 @@ $(document).ready(function(){
   var filter = new Filter();
 
   //handlebars
-  var source = '<a href="/venues/{{venues-venue-src}}"><div class="venues-venue" id="{{venues-venue-src}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""><div id="{{venues-venue-id}}" class="venue-heart"><i class="fa fa-heart-o fa-2x"></i></div></div><h1>{{venues-venue-name}}</h1></div></a>';
+  var source = '<div class="venues-venue" id="{{venues-venue-src}}"><div class="venue-img"><a href="/venues/{{venues-venue-src}}"><img src="{{venues-venue-img}}" alt=""></a><div id="{{venues-venue-id}}" class="venue-heart"><i class="fa fa-heart-o fa-2x"></i></div></div><a href="/venues/{{venues-venue-src}}"><h1>{{venues-venue-name}}</h1></a></div></a>';
 
   // var source2 = $("#venues-venue-cover-template").html();
 
@@ -283,49 +283,6 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
   
 
 
-function venueFilterFuncs(){
-}
-
-venueFilterFuncs.prototype.selectAll = function(el){
-  var i = 0,
-  els = $(el),
-  arr = [];
-
-  for(i; i<els.length; i++){
-    arr.push(els[i].value);
-  }
-
-  return arr;
-};
-
-venueFilterFuncs.prototype.checkOptions = function(el, type){
-  //runs through all available options on the type
-  //checks what is checked
-  //returns arr of checked vals
-
-  var i = 0,
-      els = $(el),
-      arr = [];
-
-  for(i; i < els.length; i++){
-    if(els[i].checked){
-      if(type === 'capacity'){
-        arr.push(parseInt(els[i].value, 10));
-      } else {
-        arr.push(els[i].value);
-      }
-    }
-  }
-
-  //check if no filters selected for styles
-  if(type === 'styles' && arr.length === 0){
-    return this.selectAll(el);
-  }
-
-  return arr;
-};
-
-
 function Venue(){
   this.name = '';
   this._id = '';
@@ -463,6 +420,49 @@ $('document').ready(function(){
     });
   });
 });
+function venueFilterFuncs(){
+}
+
+venueFilterFuncs.prototype.selectAll = function(el){
+  var i = 0,
+  els = $(el),
+  arr = [];
+
+  for(i; i<els.length; i++){
+    arr.push(els[i].value);
+  }
+
+  return arr;
+};
+
+venueFilterFuncs.prototype.checkOptions = function(el, type){
+  //runs through all available options on the type
+  //checks what is checked
+  //returns arr of checked vals
+
+  var i = 0,
+      els = $(el),
+      arr = [];
+
+  for(i; i < els.length; i++){
+    if(els[i].checked){
+      if(type === 'capacity'){
+        arr.push(parseInt(els[i].value, 10));
+      } else {
+        arr.push(els[i].value);
+      }
+    }
+  }
+
+  //check if no filters selected for styles
+  if(type === 'styles' && arr.length === 0){
+    return this.selectAll(el);
+  }
+
+  return arr;
+};
+
+
 function Venues(){
   this.list = [];
   this.maxCap = [];

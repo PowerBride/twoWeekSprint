@@ -6,7 +6,7 @@ $(document).ready(function(){
   var filter = new Filter();
 
   //handlebars
-  var source = '<a href="/venues/{{venues-venue-src}}"><div class="venues-venue" id="{{venues-venue-src}}"><div class="venue-img"><img src="{{venues-venue-img}}" alt=""><div id="{{venues-venue-id}}" class="venue-heart"><i class="fa fa-heart-o fa-2x"></i></div></div><h1>{{venues-venue-name}}</h1></div></a>';
+  var source = '<div class="venues-venue" id="{{venues-venue-src}}"><div class="venue-img"><a href="/venues/{{venues-venue-src}}"><img src="{{venues-venue-img}}" alt=""></a><div id="{{venues-venue-id}}" class="venue-heart"><i class="fa fa-heart-o fa-2x"></i></div></div><a href="/venues/{{venues-venue-src}}"><h1>{{venues-venue-name}}</h1></a></div></a>';
 
   // var source2 = $("#venues-venue-cover-template").html();
 
