@@ -2,6 +2,7 @@ function Venue(){
   this.name = '';
   this._id = '';
   this.imgs = [];
+  this.liked = false;
 }
 
 Venue.prototype.getVenue = function(name, cb){
@@ -11,6 +12,7 @@ Venue.prototype.getVenue = function(name, cb){
       that.name = data.name;
       that._id = data._id;
       that.imgs = data.imgs;
+      that.liked = data.liked;
       
       cb();
     });
@@ -32,17 +34,30 @@ Venue.prototype.setImgs = function(el){
 
   $carousel.each(function(){
 
-  console.log(that);
   $(this).attr('src', that.imgs[i]);
-  console.log(that.imgs);
-  console.log(that.imgs[i]);
-  console.log(i);
+
   if(i === length){
     i = 0;
   } else {
     i++;
   }
   });
+};
+
+Venue.prototype.setLiked = function(el){
+  var $carousel = $(el);
+  var heart = '';
+
+  console.log('boom!');
+  if(this.liked === true){
+    heart = '<i id="single-venue-heart" class="fa fa-heart fa-3x liked"></i>';
+  } else {
+    heart = '<i id="single-venue-heart" class="fa fa-heart-o fa-3x"></i>';
+  }
+
+  $carousel.append(heart);
+
+  return '#single-venue-heart';
 };
 
 Venue.prototype.setDetails = function(el){

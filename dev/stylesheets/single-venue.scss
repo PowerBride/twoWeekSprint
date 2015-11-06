@@ -2,6 +2,14 @@ $background: white;
 $body: #f2f2f2;
 $red: #e0656d;
 
+#single-venue-heart{
+  position: absolute;
+  bottom: 10%;
+  left: 7%;
+  color: $red;
+  z-index: 130;
+}
+
 .singleVenueBackground{
   margin-top: -50px;
   background: $body;

@@ -14,6 +14,18 @@ $('document').ready(function(){
 
     venue.setPageName('#venueHeader-title');
     venue.setImgs('img.carousel');
+
+
+    var $heart = $(venue.setLiked('#singleVenue-carousel'));
+
+    $heart.on('click', function(){
+      toggleLiked($heart);
+      console.log(venue.liked);
+      venue.liked = !venue.liked;
+      console.log(venue.liked);
+
+    });
+    
   });
 
   $venueMenuChildren.each(function(){
