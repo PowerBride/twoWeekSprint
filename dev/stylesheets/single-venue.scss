@@ -26,6 +26,12 @@ $red: #e0656d;
           text-align: right;
           display: inline;
           float: right;
+          a {
+            color: black;
+            &:hover {
+              opacity: .8;
+            }
+          }
         }
       }
     }
@@ -63,7 +69,19 @@ $red: #e0656d;
         .active {
           color: $red !important;
           font-weight: 300 !important;
-          border-bottom-color: $body !important;
+          border-bottom: 0px solid transparent !important;
+          padding-bottom: 14px;
+        }
+        .menu-carrow {
+          position: absolute;
+          left: 35%;
+          top: 35px;
+          color: $body;
+        }
+        a {
+          &:active {
+            border-bottom: 2px solid transparent !important;
+          }
         }
       }
       .description {
