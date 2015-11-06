@@ -22,3 +22,12 @@ function toggleLiked($el){
   toggleClass($el, 'fa-heart-o');
   toggleClass($el, 'fa-heart');
 }
+
+function pathName(path){
+  var venues = '/venues/';
+  var index = venues.length;
+
+  if(path.indexOf(venues) === 0){
+    return path.slice(index, path.length);
+  }
+}

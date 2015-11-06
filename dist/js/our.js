@@ -193,6 +193,15 @@ function toggleLiked($el){
   toggleClass($el, 'fa-heart-o');
   toggleClass($el, 'fa-heart');
 }
+
+function pathName(path){
+  var venues = '/venues/';
+  var index = venues.length;
+
+  if(path.indexOf(venues) === 0){
+    return path.slice(index, path.length);
+  }
+}
 //filter obj
 // var filter = {
 //   styles: [],
@@ -317,47 +326,6 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
 };
 
 
-$('document').ready(function(){
-  var $singleVenueMenu = $('.singleVenue-menu'),
-      $venueMenuChildren = $singleVenueMenu.children();
-
-  var carrow = '<i class="fa fa-sort-asc fa-3x menu-carrow"></i>';
-
-
-  $venueMenuChildren.each(function(){
-    var $this = $(this);
-
-
-    $this.on('click', function(){
-      var id = $this.attr('id');
-      console.log(id);
-
-
-
-      if(!$this.hasClass('active')){
-        $this.toggleClass('active').append(carrow);
-
-        $venueMenuChildren.each(function(){
-          var $that = $(this);
-          if(!$that.is($this) && $that.hasClass('active')){
-            $that.toggleClass('active');
-            $that.children().remove();
-          }
-        });
-      }
-    });
-  });
-});
-$('document').ready(function(){
-
-  $('.ui.sticky')
-    .sticky()
-  ;
-
-  $('.singleVenue-carousel').slick();
-
-});
-
 function Venues(){
   this.list = [];
   this.maxCap = [];
@@ -378,11 +346,9 @@ Venues.prototype.contextualizeVenue = function(data){
   return context;
 };
 
-
-
 Venues.prototype.getVenuesByLocation = function(location, cb){
     var that = this;
-    $.get('/api/locations/location/' + location, function(data){
+    $.get('/api/venues/location/' + location, function(data){
       that.available = data;
       
       cb();
@@ -405,3 +371,101 @@ Venues.prototype.setLiked = function(id, cb){
 };
 
 
+
+function Venue(){
+  this.name = '';
+  this._id = '';
+  this.imgs = [];
+}
+
+Venue.prototype.getVenue = function(name, cb){
+  var that = this;
+    
+  $.get('/api/venues/' + name, function(data){
+      that.name = data.name;
+      that._id = data._id;
+      that.imgs = data.imgs;
+      
+      cb();
+    });
+
+};
+
+Venue.prototype.setPageName = function(el){
+  var $title = $(el + '> h1');
+
+  $title.html(this.name);
+};
+
+Venue.prototype.setImgs = function(el){
+  var $carousel = $(el);
+  var i = this.imgs.length - 1;
+  var length = this.imgs.length - 1;
+
+  var that = this;
+
+  $carousel.each(function(){
+
+  console.log(that);
+  $(this).attr('src', that.imgs[i]);
+  console.log(that.imgs);
+  console.log(that.imgs[i]);
+  console.log(i);
+  if(i === length){
+    i = 0;
+  } else {
+    i++;
+  }
+  });
+};
+$('document').ready(function(){
+  var $singleVenueMenu = $('.singleVenue-menu'),
+      $venueMenuChildren = $singleVenueMenu.children();
+
+  var carrow = '<i class="fa fa-sort-asc fa-3x menu-carrow"></i>';
+
+  var href = window.location.pathname;
+  console.log(href);
+
+  var venueName = pathName(href);
+
+  var venue = new Venue();
+  venue.getVenue(venueName, function(){
+
+    venue.setPageName('#venueHeader-title');
+    venue.setImgs('img.carousel');
+  });
+
+  $venueMenuChildren.each(function(){
+    var $this = $(this);
+
+
+    $this.on('click', function(){
+      var id = $this.attr('id');
+      console.log(id);
+
+
+
+      if(!$this.hasClass('active')){
+        $this.toggleClass('active').append(carrow);
+
+        $venueMenuChildren.each(function(){
+          var $that = $(this);
+          if(!$that.is($this) && $that.hasClass('active')){
+            toggleClass($that, 'active');
+            $that.children().remove();
+          }
+        });
+      }
+    });
+  });
+});
+$('document').ready(function(){
+
+  $('.ui.sticky')
+    .sticky()
+  ;
+
+  $('.singleVenue-carousel').slick();
+
+});

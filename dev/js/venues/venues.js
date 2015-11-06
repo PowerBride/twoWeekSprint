@@ -18,11 +18,9 @@ Venues.prototype.contextualizeVenue = function(data){
   return context;
 };
 
-
-
 Venues.prototype.getVenuesByLocation = function(location, cb){
     var that = this;
-    $.get('/api/locations/location/' + location, function(data){
+    $.get('/api/venues/location/' + location, function(data){
       that.available = data;
       
       cb();

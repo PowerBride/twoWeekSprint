@@ -4,6 +4,17 @@ $('document').ready(function(){
 
   var carrow = '<i class="fa fa-sort-asc fa-3x menu-carrow"></i>';
 
+  var href = window.location.pathname;
+  console.log(href);
+
+  var venueName = pathName(href);
+
+  var venue = new Venue();
+  venue.getVenue(venueName, function(){
+
+    venue.setPageName('#venueHeader-title');
+    venue.setImgs('img.carousel');
+  });
 
   $venueMenuChildren.each(function(){
     var $this = $(this);
@@ -21,7 +32,7 @@ $('document').ready(function(){
         $venueMenuChildren.each(function(){
           var $that = $(this);
           if(!$that.is($this) && $that.hasClass('active')){
-            $that.toggleClass('active');
+            toggleClass($that, 'active');
             $that.children().remove();
           }
         });

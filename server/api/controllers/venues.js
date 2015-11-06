@@ -3,6 +3,23 @@ var sendJsonResponse = function(res, status, content){
   res.json(content);
 };
 
+function find(arr, name){
+  var i = 0;
+
+  for(i; i<arr.length; i++){
+    var arre = arr[i].name.split(' ');
+    var string = arre.join('');
+    var lower = string.toLowerCase();
+
+    if(lower === name){
+      console.log('CHECK');
+      return arr[i];
+    }
+  }
+
+  return -1;
+}
+
 var entries = [
     {
       _id: '1',
@@ -109,4 +126,14 @@ var entries = [
 
 module.exports.getLocation = function(req, res){
   sendJsonResponse(res, 200, entries);
+};
+
+module.exports.getSingle = function(req, res){
+  var el = find(entries, req.params.name);
+
+  if(el !== -1){
+    sendJsonResponse(res, 200, el);
+  } else {
+    sendJsonResponse(res, 400, {'error': 'could not find object'});
+  }
 };

@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 // require('./api/models/db');
 
 var routes = require('./routes/index');
-var locationRoutes = require('./api/routes/venues');
+var apiVenuesRoutes = require('./api/routes/venues');
 var venuesRoutes = require('./routes/venues');
 // var bluePrintModelRoutes = require('./api/routes/bluePrintModel');
 
@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, '../', 'dist')));
 
 app.use('/', routes);
 app.use('/venues', venuesRoutes);
-app.use('/api/locations', locationRoutes);
+app.use('/api/venues', apiVenuesRoutes);
 // app.use('/api/blueprintmodel', bluePrintModelRoutes);
 
 // catch 404 and forward to error handler
