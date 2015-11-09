@@ -13,6 +13,7 @@ var userCtrl = require('../controllers/user');
 router.post('/users', userCtrl.createUser);
 router.post('/sessions', userCtrl.login);
 router.get('/user', userCtrl.showProfile);
+router.get('/users', userCtrl.getAll);
 router.get('/logout', userCtrl.logout);
 
 module.exports = router;

@@ -6,6 +6,18 @@ var sendJsonResponse = function(res, status, content){
 var mongoose = require('mongoose');
 var User = require('../models/user');
 
+module.exports.getAll = function(req, res, next){
+  User.find().exec(function(err, users){
+    if(err){
+      sendJsonResponse(res, 404, {'status': 'something went wrong'});
+    }
+
+    console.log('find complete');
+    sendJsonResponse(res, 200, users);
+  });
+};
+
+
 module.exports.createUser = function(req, res, next){
   User.createSecure(req.body.username, req.body.email, req.body.password, function(err, user){
     if(err){

@@ -10,8 +10,10 @@ var bodyParser = require('body-parser');
 require('./api/models/db');
 
 var routes = require('./routes/index');
+var User = require('./api/models/user');
 var apiVenuesRoutes = require('./api/routes/venues');
 var venuesRoutes = require('./routes/venues');
+var apiUserRoutes = require('./api/routes/user');
 // var bluePrintModelRoutes = require('./api/routes/bluePrintModel');
 
 var app = express();
@@ -47,11 +49,11 @@ app.use('/', function (req, res, next) {
   req.currentUser = function (callback) {
     User.findOne({_id: req.session.userId}, function (err, user) {
       if (!user) {
-        callback("No User Found", null);
+        console.log("No User Found");
       } else {
         req.user = user;
-        callback(null, user);
       }
+      callback();
     });
   };
 
@@ -61,6 +63,7 @@ app.use('/', function (req, res, next) {
 app.use('/', routes);
 app.use('/venues', venuesRoutes);
 app.use('/api/venues', apiVenuesRoutes);
+app.use('/api/users', apiUserRoutes);
 // app.use('/api/blueprintmodel', bluePrintModelRoutes);
 
 // catch 404 and forward to error handler
