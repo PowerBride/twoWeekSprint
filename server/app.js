@@ -2,11 +2,12 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var session = require("express-session");
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-//requiring db before routes to make sure everything loads in correctly
-// require('./api/models/db');
+// requiring db before routes to make sure everything loads in correctly
+require('./api/models/db');
 
 var routes = require('./routes/index');
 var apiVenuesRoutes = require('./api/routes/venues');
@@ -27,6 +28,35 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../', 'dist')));
+
+
+// sessions
+app.use(session({
+  //this forces an unitialized session to be saved, uninitialized meaning new but not modified
+  saveUninitialized: true,
+  //this forces a session to be saved even if it is not modified
+  resave: true,
+  secret: 'ASuperSecretCookieSecret', // for testing purposes
+  cookie: { maxAge: 30 * 60 * 1000 } // 30 minute cookie lifespan (in milliseconds)
+}));
+
+// server.js
+// custom middleware - should go before routes
+// adds a currentUser method to the request (req) that can find the user currently logged in based on the request's `session.userId`
+app.use('/', function (req, res, next) {
+  req.currentUser = function (callback) {
+    User.findOne({_id: req.session.userId}, function (err, user) {
+      if (!user) {
+        callback("No User Found", null);
+      } else {
+        req.user = user;
+        callback(null, user);
+      }
+    });
+  };
+
+  next();
+});
 
 app.use('/', routes);
 app.use('/venues', venuesRoutes);
