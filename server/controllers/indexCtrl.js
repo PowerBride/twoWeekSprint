@@ -6,3 +6,15 @@ module.exports.index = function(req, res, next) {
   });
   
 };
+
+module.exports.login = function(req, res, next){
+  res.render('login');
+};
+
+module.exports.logout = function(req, res, next){
+  res.render('logout');
+};
+
+module.exports.user = function(req, res, next){
+  res.render('user');
+};

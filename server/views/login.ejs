@@ -1,0 +1,41 @@
+<% include ./partials/head %>
+  
+  <h1>Log In</h1>
+  <hr>
+
+  <form id="login-form">
+    <div class="form-group">
+      <input type="text" name="email" class="form-control" placeholder="Email" autofocus>
+    </div>
+    <div class="form-group">
+      <input type="password" name="password" class="form-control" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Log In" class="btn btn-primary">
+    </div>
+    
+  </form>
+
+
+  <script>
+    $('#login-form').on('submit', function(e){
+      e.preventDefault();
+      var $this = $(this);
+      var data = $this.serialize();
+
+      $.post("/api/users/sessions", data, function(d){
+        console.log(d);
+      });
+
+
+    })
+
+  </script>
+
+
+
+
+
+
+
+<% include ./partials/foot %>

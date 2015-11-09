@@ -31,7 +31,9 @@ module.exports.createUser = function(req, res, next){
 
 module.exports.login = function(req, res, next){
   User.authenticate(req.body.email, req.body.password, function (err, user) {
-    res.json(user);
+    req.session.userId = user._id;
+    req.user = user;
+    res.json({us: user, id: req.session.userId, req: req.user});
   });
 };
 
@@ -59,8 +61,9 @@ module.exports.showProfile = function(req, res, next){
 };
 
 module.exports.logout = function(req, res, next){
+  var a = req.session.userId;
   req.session.userId = null;
   req.user = null;
 
-  sendJson(res, 200, {'status': 'logged out'});
+  sendJsonResponse(res, 200, {'status': 'logged out', 'user': a});
 };

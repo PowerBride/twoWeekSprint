@@ -1,0 +1,23 @@
+<% include ./partials/head %>
+
+<button id="logout-button">
+  Logout
+</button>
+
+<script>
+  $('#logout-button').on('click', function(e){
+    var $this = $(this);
+
+    $.get("/api/users/logout", function(d){
+      console.log(d);
+    });
+
+  });
+
+ </script>
+
+
+
+
+
+<% include ./partials/foot %>
