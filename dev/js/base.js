@@ -124,10 +124,11 @@ $(document).ready(function(){
     var $venue;
     var $i;
 
-    arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
+    arr1 = filter.applyFilter(venues.available, 'capacity', venues.maxCap);
+    console.log("ARR1", arr1);
 
     arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
-    
+    console.log("ARR2", arr2);
     arr1.forEach(function(el){
       arr2.forEach(function(bel){
 
@@ -162,7 +163,10 @@ $(document).ready(function(){
         var id = $this.parent().attr('id');
         venues.setLiked(id, 'available', function(){
           toggleLiked($this);
-          console.log(id);
+          venues.like(id, function(el){
+            console.log(el);
+          });
+          
         });
                
       });

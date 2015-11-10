@@ -124,10 +124,11 @@ $(document).ready(function(){
     var $venue;
     var $i;
 
-    arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
+    arr1 = filter.applyFilter(venues.available, 'capacity', venues.maxCap);
+    console.log("ARR1", arr1);
 
     arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
-    
+    console.log("ARR2", arr2);
     arr1.forEach(function(el){
       arr2.forEach(function(bel){
 
@@ -162,7 +163,10 @@ $(document).ready(function(){
         var id = $this.parent().attr('id');
         venues.setLiked(id, 'available', function(){
           toggleLiked($this);
-          console.log(id);
+          venues.like(id, function(el){
+            console.log(el);
+          });
+          
         });
                
       });
@@ -244,16 +248,17 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
       resArr = [],
       check = true;
 
+  console.log(arr, type, filterList);
+
   for(i; i < arr.length; i++){
     for(j=0; j<filterList.length; j++){
       
       //check if maxCap is filter. 
       //if so, add the searched obj to list if it's type is less than or equal to filter or if the filter is 0 
-      if(type === 'maxCap'){
+      if(type === 'capacity'){
         if(arr[i][type] <= filterList[j] || filterList[j] === 0){
 
           check = checkObjInArray(arr[i], resArr);
-
           if(!check){
             resArr.push(arr[i]);
           }
@@ -659,7 +664,7 @@ Venues.prototype.contextualizeVenue = function(data){
   var context = {
     'venues-venue-name': data.name,
     'venues-venue-src': data.src,
-    'venues-venue-img': data.img,
+    'venues-venue-img': data.mainImg,
     'venues-venue-liked': data.liked,
     'venues-venue-id': data._id
   };
@@ -672,6 +677,7 @@ Venues.prototype.getVenuesByLocation = function(location, cb){
     var that = this;
     $.get('/api/venues/location/' + location, function(data){
       that.available = data;
+      console.log("THAT", that);
       
       cb();
     });
@@ -699,13 +705,13 @@ Venues.prototype.setLiked = function(id, list, cb){
   }
 };
 
-Venues.prototype.like = function(id, bool, cb){
+Venues.prototype.like = function(id, cb){
   var obj = {
     _id: id
   };
   
   $.post('/api/venues/likes', obj, function(data){
-    cb();
+    cb(data);
   });
 };
 

@@ -11,7 +11,7 @@ Venues.prototype.contextualizeVenue = function(data){
   var context = {
     'venues-venue-name': data.name,
     'venues-venue-src': data.src,
-    'venues-venue-img': data.img,
+    'venues-venue-img': data.mainImg,
     'venues-venue-liked': data.liked,
     'venues-venue-id': data._id
   };
@@ -24,6 +24,7 @@ Venues.prototype.getVenuesByLocation = function(location, cb){
     var that = this;
     $.get('/api/venues/location/' + location, function(data){
       that.available = data;
+      console.log("THAT", that);
       
       cb();
     });
@@ -51,13 +52,13 @@ Venues.prototype.setLiked = function(id, list, cb){
   }
 };
 
-Venues.prototype.like = function(id, bool, cb){
+Venues.prototype.like = function(id, cb){
   var obj = {
     _id: id
   };
   
   $.post('/api/venues/likes', obj, function(data){
-    cb();
+    cb(data);
   });
 };
 

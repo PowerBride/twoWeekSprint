@@ -11,7 +11,7 @@ var venueSchema = new Schema({
     description: String,
     styles: [String],
     services: [String],
-    capacity: [String],
+    capacity: Number,
     timeRestrictions: String,
     rentalFees: String,
     rentalFeeMin: Number,
@@ -23,4 +23,6 @@ var venueSchema = new Schema({
     coords: {type: [Number], index: '2dsphere'}
 });
 
-mongoose.model('Venue', venueSchema);
+
+var Venue = mongoose.model('Venue', venueSchema);
+module.exports = Venue;

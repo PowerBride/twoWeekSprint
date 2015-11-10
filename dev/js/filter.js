@@ -39,16 +39,17 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
       resArr = [],
       check = true;
 
+  console.log(arr, type, filterList);
+
   for(i; i < arr.length; i++){
     for(j=0; j<filterList.length; j++){
       
       //check if maxCap is filter. 
       //if so, add the searched obj to list if it's type is less than or equal to filter or if the filter is 0 
-      if(type === 'maxCap'){
+      if(type === 'capacity'){
         if(arr[i][type] <= filterList[j] || filterList[j] === 0){
 
           check = checkObjInArray(arr[i], resArr);
-
           if(!check){
             resArr.push(arr[i]);
           }

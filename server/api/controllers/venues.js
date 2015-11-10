@@ -23,117 +23,14 @@ function find(arr, name){
 var User = require('../models/user');
 var Venue = require('../models/venue');
 
-var entries = [
-    {
-      _id: '1',
-      name: 'GrandView Pavillion',
-      src: 'grandviewpavillion',
-      img: 'http://loremflickr.com/300/300/dog',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: true,
-      maxCap: 250,
-      styles: ['beach', 'garden']
-    },
-    {
-      _id: '2',
-      name: 'Barlow Events',
-      src: 'barlowevents',
-      img: 'http://loremflickr.com/300/300/music',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: true,
-      maxCap: 150,
-      styles: ['barn', 'garden']
-    },
-    {
-      _id: '3',
-      name: 'Tank18 Winery',
-      src: 'tank18winery',
-      img: 'http://loremflickr.com/300/300/winery',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: false,
-      maxCap: 250,
-      styles: ['barn', 'backyard']
-    },
-    {
-      _id: '4',
-      name: 'Winemaker Studios',
-      src: 'winemakerstudios',
-      img: 'http://loremflickr.com/300/300/cat',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: false,
-      maxCap: 100,
-      styles: ['beach', 'countryclub', 'backyard']
-    },
-    {
-      _id: '5',
-      name: 'Hamlin Mansion',
-      src: 'hamlinmansion',
-      img: 'http://loremflickr.com/300/300/mansion',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: false,
-      maxCap: 250,
-      styles: ['backyard', 'garden', 'countryclub']
-    },
-    {
-      _id: '6',
-      name: 'Firehouse 8',
-      src: 'firehouse8',
-      img: 'http://loremflickr.com/300/300/house',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: false,
-      maxCap: 300,
-      styles: ['countryclub', 'barn']
-    },
-    {
-      _id: '7',
-      name: 'Singe Barrel House',
-      src: 'singebarrelhouse',
-      img: 'http://loremflickr.com/300/300/bird',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: false,
-      maxCap: 100,
-      styles: ['cityhall', 'garden']
-    },
-    {
-      _id: '8',
-      name: 'Ocean Beach',
-      src: 'oceanbeach',
-      img: 'http://loremflickr.com/300/300/beach',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: false,
-      maxCap: 550,
-      styles: ['beach', 'garden']
-    },
-    {
-      _id: '9',
-      name: 'Faker Island',
-      src: 'fakerisland',
-      img: 'http://loremflickr.com/300/300/island',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: false,
-      maxCap: 250,
-      styles: ['beach', 'garden', 'backyard']
-    },
-    {
-      _id: '10',
-      name: 'Tomer Barn',
-      src: 'tomerbarn',
-      img: 'http://loremflickr.com/300/300/penguin',
-      imgs: ['http://loremflickr.com/600/300/dog', 'http://loremflickr.com/600/300/cat', 'http://loremflickr.com/600/300/soccer'],
-      liked: false,
-      maxCap: 300,
-      styles: ['barn', 'garden']
-    }
-];
-
 module.exports.getAll = function(req, res){
-  Venue.find().exec(function(err, entries){
+  Venue.find().exec(function(err, venues){
     if(err){
       sendJsonResponse(res, 404, {'status': 'something went wrong'});
     }
 
     console.log('find complete');
-    sendJsonResponse(res, 200, entries);
+    sendJsonResponse(res, 200, venues);
   });
 };
 
@@ -171,17 +68,114 @@ module.exports.create = function(req, res){
 
 
 module.exports.getLocation = function(req, res){
-  sendJsonResponse(res, 200, entries);
+
+
+    Venue.find().exec(function(err, entries){
+      if(err){
+        sendJsonResponse(res, 404, {'status': 'something went wrong'});
+      }
+
+      if(!req.session.userId){
+        var arr = [];
+        console.log("ENTRIES", entries);
+
+        for(var i = 0; i < entries.length; i++){
+          var venue = {
+            name: entries[i].name,
+            src: entries[i].src,
+            images: entries[i].images,
+            mainImg: entries[i].mainImg,
+            bookedDates: [],
+            reviews: [],
+            _id: entries[i]._id,
+            description: entries[i].description,
+            styles: entries[i].styles,
+            services: entries[i].services,
+            capacity: entries[i].capacity,
+            timeRestrictions: entries[i].timeRestrictions,
+            rentalFees: entries[i].rentalFees,
+            rentalFeeMin: entries[i].rentalFeeMin,
+            rentalFeeMax: entries[i].rentalFeeMax,
+            amenities: entries[i].amenities,
+            specialRestrictions: entries[i].specialRestrictions,
+            alcohol: entries[i].alcohol,
+            address: entries[i].address,
+            coords: entries[i].coords,
+            liked: false
+          };
+          arr.push(venue);
+        }
+        console.log("ARR", arr);
+        sendJsonResponse(res, 200, arr);
+      } else {
+        User.findOne({_id: req.session.userId})
+        .populate('likes')
+        .exec(function(err, user){
+          console.log(user, 'user');
+          var arr = [];
+          for(var i = 0; i < entries.length; i++){
+            var venue = {
+              name: entries[i].name,
+              src: entries[i].src,
+              images: entries[i].images,
+              mainImg: entries[i].mainImg,
+              bookedDates: [],
+              reviews: [],
+              _id: entries[i]._id,
+              description: entries[i].description,
+              styles: entries[i].styles,
+              services: entries[i].services,
+              capacity: entries[i].capacity,
+              timeRestrictions: entries[i].timeRestrictions,
+              rentalFees: entries[i].rentalFees,
+              rentalFeeMin: entries[i].rentalFeeMin,
+              rentalFeeMax: entries[i].rentalFeeMax,
+              amenities: entries[i].amenities,
+              specialRestrictions: entries[i].specialRestrictions,
+              alcohol: entries[i].alcohol,
+              address: entries[i].address,
+              coords: entries[i].coords,
+            };
+
+            for(var j = 0; j < user.likes.length; j++){
+              console.log('USER', user.likes[j]._id);
+              console.log("VENU", venue._id);
+
+              if(user.likes[j]._id.equals(venue._id)){
+                
+                venue['liked'] = true;
+                break;
+                
+              } else {
+                venue['liked'] = false;
+              }
+            }
+
+            arr.push(venue);
+            
+          }
+          console.log(arr);
+          console.log('find complete');
+          sendJsonResponse(res, 200, arr);
+        });
+
+        
+    }
+  });
 };
 
-module.exports.getSingle = function(req, res){
-  var el = find(entries, req.params.name);
 
-  if(el !== -1){
-    sendJsonResponse(res, 200, el);
-  } else {
-    sendJsonResponse(res, 400, {'error': 'could not find object'});
-  }
+module.exports.getSingle = function(req, res){
+  Venue.findOne({src: req.session.name})
+  .exec(function(err, venue){
+    if(err){
+      sendJsonResponse(res, 404, {'error': 'could not find object'});
+      
+    } else {
+      sendJsonResponse(res, 200, venue);
+    }
+  });
+  
 };
 
 module.exports.getLikes = function(req, res){
@@ -208,7 +202,7 @@ module.exports.getLikes = function(req, res){
 
 module.exports.setLike = function(req, res){
   if(!req.session.userId){
-    sendJsonResponse(res, 400, {'error': 'user not logged in'});
+    sendJsonResponse(res, 404, {'error': 'user not logged in'});
   } else {
     
     User.findOne({_id: req.session.userId})
@@ -216,15 +210,17 @@ module.exports.setLike = function(req, res){
       if(err){
         sendJsonResponse(res, 404, {'status': 'user could not be found'});
       }
-
+      console.log(user, 'aha');
       var arr = user.likes;
       var pos = arr.indexOf(req.body._id);
-      if(pos !== -1){
+      console.log('pos', pos);
+      if(pos === -1){
         Venue.findOne({_id: req.body._id})
         .exec(function(err, venue){
           if(err){
             sendJsonResponse(res, 400, {'status': 'venue with provided ID could not be found'});
           }
+          console.log('venue', venue);
           user.likes.push(venue);
           user.save();
           sendJsonResponse(res, 200, {'status': 'complete', 'likes': user.likes});

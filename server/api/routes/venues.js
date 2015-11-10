@@ -4,11 +4,12 @@ var venuesCtrl = require('../controllers/venues');
 
 // router.get('/', venuesCtrl.getAll);
 
+router.get('/venues', venuesCtrl.getAll);
 router.get('/:name', venuesCtrl.getSingle);
 
 router.get('/location/:location', venuesCtrl.getLocation);
 
-router.get('/venues', venuesCtrl.getAll);
+
 
 router.post('/likes', venuesCtrl.setLike);
 router.post('/', venuesCtrl.create);
