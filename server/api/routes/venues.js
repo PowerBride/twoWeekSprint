@@ -8,8 +8,11 @@ router.get('/:name', venuesCtrl.getSingle);
 
 router.get('/location/:location', venuesCtrl.getLocation);
 
+router.get('/venues', venuesCtrl.getAll);
+
 router.post('/likes', venuesCtrl.setLike);
-// router.post('/', venuesCtrl.create);
+router.post('/', venuesCtrl.create);
+
 // router.put('/:id', venuesCtrl.updateSingle);
 // router.delete('/:id', venuesCtrl.deleteSingle);
 

@@ -126,16 +126,49 @@ var entries = [
     }
 ];
 
-// module.exports.getAll = function(req, res){
-//   bpModel.find().exec(function(err, entries){
-//     if(err){
-//       sendJsonResponse(res, 404, {'status': 'something went wrong'});
-//     }
+module.exports.getAll = function(req, res){
+  Venue.find().exec(function(err, entries){
+    if(err){
+      sendJsonResponse(res, 404, {'status': 'something went wrong'});
+    }
 
-//     console.log('find complete');
-//     sendJsonResponse(res, 200, entries);
-//   });
-// };
+    console.log('find complete');
+    sendJsonResponse(res, 200, entries);
+  });
+};
+
+module.exports.create = function(req, res){
+  var newVenue = {
+    name: req.body.name,
+    src: req.body.src,
+    images: req.body.images,
+    mainImg: req.body.mainImg,
+    bookedDates: [],
+    reviews: [],
+    description: req.body.description,
+    styles: req.body.styles,
+    services: req.body.services,
+    capacity: req.body.capacity,
+    timeRestrictions: req.body.timeRestrictions,
+    rentalFees: req.body.rentalFees,
+    rentalFeeMin: req.body.rentalFeeMin,
+    rentalFeeMax: req.body.rentalFeeMax,
+    amenities: req.body.amenities,
+    specialRestrictions: req.body.specialRestrictions,
+    alcohol: req.body.alcohol,
+    address: req.body.address,
+    coords: req.body.coords
+  };
+
+  Venue.create(newVenue, function(err, venue){
+    if(err){
+      sendJsonResponse(res, 400, err);
+    } else {
+      sendJsonResponse(res, 201, venue);
+    }
+  });
+};
+
 
 module.exports.getLocation = function(req, res){
   sendJsonResponse(res, 200, entries);
@@ -198,7 +231,7 @@ module.exports.setLike = function(req, res){
 
         });
       } else {
-        arr.slice(pos, pos + 1);
+        arr.splice(pos, 1);
         user.save();
         sendJsonResponse(res, 200, {'status': 'complete', 'likes': user.likes});
       }
