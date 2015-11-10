@@ -25,6 +25,7 @@
 
       $.post("/api/users/sessions", data, function(d){
         console.log(d);
+        window.location.replace("/venues/likes");
       });
 
 

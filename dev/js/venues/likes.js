@@ -1,5 +1,3 @@
-//menues 
-
 $(document).ready(function(){
   var venFilter = new venueFilterFuncs();
   var venues = new Venues();
@@ -8,80 +6,81 @@ $(document).ready(function(){
   //handlebars
   var source = '<div class="venues-venue" id="{{venues-venue-src}}"><div class="venue-img"><a href="/venues/{{venues-venue-src}}"><img src="{{venues-venue-img}}" alt=""></a><div id="{{venues-venue-id}}" class="venue-heart"><i class="fa fa-heart-o fa-2x"></i></div></div><a href="/venues/{{venues-venue-src}}"><h1>{{venues-venue-name}}</h1></a></div></a>';
 
-  // var source2 = $("#venues-venue-cover-template").html();
 
   var template = Handlebars.compile(source);
 
   var context = '',
       html;
 
-  venues.getVenuesByLocation('sf', function(){
-    
-    createList();
+
+   venues.getLikes(function(){
+    createLikeList();
+
+
 
     //on-click styles opacity 
-    $('#menu-styles').on('click', function(){
-      var opac = $('#menu-styles-options').css('opacity');
+    $('#menu-likes-styles').on('click', function(){
+      var opac = $('#menu-likes-styles-options').css('opacity');
       var $this = $(this);
 
       if(opac === '1'){
-        $('#menu-styles-options').css('opacity', '0').css('display', 'none');
+        $('#menu-likes-styles-options').css('opacity', '0').css('display', 'none');
         $this.css('opacity', '1');
       } else {
-        $('#menu-styles-options').css('opacity', '1').css('display', 'block');
+        $('#menu-likes-styles-options').css('opacity', '1').css('display', 'block');
         $this.css('opacity', '0');
       }
     });
 
-    $('#menu-styles-options').on('click', function(){
-      var opac = $('#menu-styles').css('opacity');
+    $('#menu-likes-styles-options').on('click', function(){
+      var opac = $('#menu-likes-styles').css('opacity');
       var $this = $(this);
 
       if(opac === '1'){
-        $('#menu-styles').css('opacity', '0');
+        $('#menu-likes-styles').css('opacity', '0');
         $this.css('opacity', '1').css('display', 'block');
       } else {
-        $('#menu-styles').css('opacity', '1');
+        $('#menu-likes-styles').css('opacity', '1');
         $this.css('opacity', '0').css('display', 'none');
       }
     
     });
 
-    $('#menu-capacity').on('click', function(){
-      var opac = $('#menu-capacity-options').css('opacity');
+    $('#menu-likes-capacity').on('click', function(){
+      var opac = $('#menu-likes-capacity-options').css('opacity');
       var $this = $(this);
 
       if(opac === '1'){
-        $('#menu-capacity-options').css('opacity', '0').css('display', 'none');
+        $('#menu-likes-capacity-options').css('opacity', '0').css('display', 'none');
         $this.css('opacity', '1');
       } else {
-        $('#menu-capacity-options').css('opacity', '1').css('display', 'block');
+        $('#menu-likes-capacity-options').css('opacity', '1').css('display', 'block');
         $this.css('opacity', '0');
       }
       
     });
 
-    $('#menu-capacity-options').on('click', function(){
-      var opac = $('#menu-capacity').css('opacity');
+    $('#menu-likes-capacity-options').on('click', function(){
+      var opac = $('#menu-likes-capacity').css('opacity');
       var $this = $(this);
 
       if(opac === '1'){
-        $('#menu-capacity').css('opacity', '0');
+        $('#menu-likes-capacity').css('opacity', '0');
         $this.css('opacity', '1').css('display', 'block');
       } else {
-        $('#menu-capacity').css('opacity', '1');
+        $('#menu-likes-capacity').css('opacity', '1');
         $this.css('opacity', '0').css('display', 'none');
       }
       
     });
 
 
-    $('.styles-checkbox').change(function(){
-      createList();
+    $('.styles-likes-checkbox').change(function(){
+      createLikeList();
     });
 
-    $('.capacity-radio').change(function(){
-      createList();
+    $('.capacity-likes-radio').change(function(){
+      createLikeList();
     });
 
     $('input[type=checkbox]').on('click', function(){
@@ -108,9 +107,17 @@ $(document).ready(function(){
   });
 
 
-  function createList(){
+
+
+
+
+
+
+
+
+  function createLikeList(){
     filter.empty.call(venues, 'list');
-    clean('#venues-select');
+    clean('#venues-likes');
 
     venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
     venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
@@ -124,9 +131,9 @@ $(document).ready(function(){
     var $venue;
     var $i;
 
-    arr1 = filter.applyFilter(venues.available, 'maxCap', venues.maxCap);
+    arr1 = filter.applyFilter(venues.likes, 'maxCap', venues.maxCap);
 
-    arr2 = filter.applyFilter(venues.available, 'styles', venues.styles);
+    arr2 = filter.applyFilter(venues.likes, 'styles', venues.styles);
     
     arr1.forEach(function(el){
       arr2.forEach(function(bel){
@@ -144,7 +151,7 @@ $(document).ready(function(){
       context = venues.contextualizeVenue(arr[k]);
       html = template(context);
 
-      $('#venues-select').append(html);
+      $('#venues-likes').append(html);
 
       $venue = $('#'+arr[k]._id);
       $i = $venue.children();
@@ -160,9 +167,8 @@ $(document).ready(function(){
       $i.on('click', function(){
         var $this = $(this);
         var id = $this.parent().attr('id');
-        venues.setLiked(id, 'available', function(){
+        venues.setLiked(id, 'likes', function(){
           toggleLiked($this);
-          console.log(id);
         });
                
       });
@@ -170,3 +176,4 @@ $(document).ready(function(){
   }
 
 });
+

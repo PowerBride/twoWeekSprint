@@ -3,6 +3,7 @@ function Venues(){
   this.maxCap = [];
   this.styles = [];
   this.available = [];
+  this.likes = [];
 }
 
 Venues.prototype.contextualizeVenue = function(data){
@@ -28,9 +29,18 @@ Venues.prototype.getVenuesByLocation = function(location, cb){
     });
 };
 
-Venues.prototype.setLiked = function(id, cb){
+Venues.prototype.getLikes = function(cb){
+  var that = this;
+  $.get('/api/venues/likes', function(data){
+    that.likes = data;
+
+    cb();
+  });
+};
+
+Venues.prototype.setLiked = function(id, list, cb){
   var i = 0;
-  var arr = this.available;
+  var arr = this[list];
   
   for(i; i < arr.length; i++){
     if(arr[i]._id === id){
@@ -39,8 +49,16 @@ Venues.prototype.setLiked = function(id, cb){
     }
 
   }
+};
 
-
+Venues.prototype.like = function(id, bool, cb){
+  var obj = {
+    _id: id
+  };
+  
+  $.post('/api/venues/likes', obj, function(data){
+    cb();
+  });
 };
 
 

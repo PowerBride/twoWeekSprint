@@ -20,6 +20,9 @@ function find(arr, name){
   return -1;
 }
 
+var User = require('../models/user');
+var Venue = require('../models/venue');
+
 var entries = [
     {
       _id: '1',
@@ -145,5 +148,60 @@ module.exports.getSingle = function(req, res){
     sendJsonResponse(res, 200, el);
   } else {
     sendJsonResponse(res, 400, {'error': 'could not find object'});
+  }
+};
+
+module.exports.getLikes = function(req, res){
+  if(!req.session.userId){
+    sendJsonResponse(res, 400, {'error': 'user not logged in'});
+  } else {
+    User.findOne({_id: req.session.userId})
+    .populate('likes')
+    .exec(function(err, user){
+      if(err){
+        sendJsonResponse(res, 404, {'status': 'user could not be found'});
+      }
+
+      var yser = {
+        username: user.username,
+        email: user.email,
+        picture: user.picture,
+        likes: user.likes
+      };
+      sendJson(res, 200, yser);
+    });
+  }
+};
+
+module.exports.setLike = function(req, res){
+  if(!req.session.userId){
+    sendJsonResponse(res, 400, {'error': 'user not logged in'});
+  } else {
+    
+    User.findOne({_id: req.session.userId})
+    .exec(function(err, user){
+      if(err){
+        sendJsonResponse(res, 404, {'status': 'user could not be found'});
+      }
+
+      var arr = user.likes;
+      var pos = arr.indexOf(req.body._id);
+      if(pos !== -1){
+        Venue.findOne({_id: req.body._id})
+        .exec(function(err, venue){
+          if(err){
+            sendJsonResponse(res, 400, {'status': 'venue with provided ID could not be found'});
+          }
+          user.likes.push(venue);
+          user.save();
+          sendJsonResponse(res, 200, {'status': 'complete', 'likes': user.likes});
+
+        });
+      } else {
+        arr.slice(pos, pos + 1);
+        user.save();
+        sendJsonResponse(res, 200, {'status': 'complete', 'likes': user.likes});
+      }
+    });
   }
 };
