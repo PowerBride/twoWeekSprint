@@ -219,14 +219,14 @@ Venue.prototype.setPageName = function(el){
 // do so by appending an actual image div rather than just changing the source of the ones in it
 Venue.prototype.setImgs = function(el){
   var $carousel = $(el);
-  var i = this.imgs.length - 1;
-  var length = this.imgs.length - 1;
+  var i = this.images.length - 1;
+  var length = this.images.length - 1;
 
   var that = this;
 
   $carousel.each(function(){
 
-  $(this).attr('src', that.imgs[i]);
+  $(this).attr('src', that.images[i]);
 
   if(i === length){
     i = 0;
@@ -237,6 +237,8 @@ Venue.prototype.setImgs = function(el){
 };
 
 Venue.prototype.setLiked = function(el){
+  console.log(this.liked, 'am i liked?');
+  console.log(this);
   var $carousel = $(el);
   var heart = '';
 

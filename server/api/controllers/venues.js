@@ -213,6 +213,7 @@ module.exports.getSingle = function(req, res){
         ven.coords = venue.coords;
       if(!req.session.userId){
         console.log('no user logged in');
+        sendJsonResponse(res, 200, ven);
       } else {
         User.findOne({_id: req.session.userId})
         .exec(function(err, user){
@@ -220,19 +221,24 @@ module.exports.getSingle = function(req, res){
             sendJsonResponse(res, 404, {'status': 'user could not be found'});
           }
           for(var i = 0; i < user.likes.length; i++){
-
-              if(user.likes[i]._id.equals(ven._id)){
-                
-                ven['liked'] = true;
-                break;
+              console.log('user likes', user.likes[i]);
+              console.log('venid   id', ven._id);
+              if(user.likes[i].equals(ven._id)){
+                console.log('set liked!');
+                console.log(ven.liked);
+                ven.liked = true;
+                console.log(ven.liked);
                 
               }
             }
+
+          console.log(ven);
+          sendJsonResponse(res, 200, ven);
         });
 
       }
-      console.log(ven);
-      sendJsonResponse(res, 200, ven);
+      
+      
     }
   });
   
