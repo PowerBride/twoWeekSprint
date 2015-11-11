@@ -337,8 +337,23 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
 function Venue(){
   this.name = '';
   this._id = '';
-  this.imgs = [];
+  this.images = [];
   this.liked = false;
+  this.bookedDates = [];
+  this.reviews = [];
+  this.description = '';
+  this.styles = [];
+  this.services = [];
+  this.capacity = 0;
+  this.timeRestrictions = '';
+  this.rentalFees = '';
+  this.rentalFeeMin = 0;
+  this.rentalFeeMax = 0;
+  this.amenities = [];
+  this.specialRestrictions = '';
+  this.alcohol = '';
+  this.address = '';
+  this.coords = [];
 }
 
 Venue.prototype.getVenue = function(name, cb){
@@ -347,8 +362,23 @@ Venue.prototype.getVenue = function(name, cb){
   $.get('/api/venues/' + name, function(data){
       that.name = data.name;
       that._id = data._id;
-      that.imgs = data.imgs;
+      that.images = data.images;
       that.liked = data.liked;
+      that.bookedDates = data.bookedDates;
+      that.reviews = data.reviews;
+      that.description = data.description;
+      that.styles = data.styles;
+      that.services = data.services;
+      that.capacity = data.capacity;
+      that.timeRestrictions = data.timeRestrictions;
+      that.rentalFees = data.rentalFees;
+      that.rentalFeeMax = data.rentalFeeMax;
+      that.rentalFeeMin = data.rentalFeeMin;
+      that.amenities = data.amenities;
+      that.specialRestrictions = data.specialRestrictions;
+      that.alcohol = data.alcohol;
+      that.address = data.address;
+      that.coords = data.coords;
       
       cb();
     });

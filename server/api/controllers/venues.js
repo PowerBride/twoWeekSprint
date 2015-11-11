@@ -138,8 +138,6 @@ module.exports.getLocation = function(req, res){
             };
 
             for(var j = 0; j < user.likes.length; j++){
-              console.log('USER', user.likes[j]._id);
-              console.log("VENU", venue._id);
 
               if(user.likes[j]._id.equals(venue._id)){
                 
@@ -166,13 +164,75 @@ module.exports.getLocation = function(req, res){
 
 
 module.exports.getSingle = function(req, res){
-  Venue.findOne({src: req.session.name})
+  var ven = {
+    name: '',
+    _id: '',
+    images: [],
+    liked: false,
+    bookedDates: [],
+    reviews: [],
+    description: '',
+    styles: [],
+    services: [],
+    capacity: 0,
+    timeRestrictions: '',
+    rentalFees: '',
+    rentalFeeMin: 0,
+    rentalFeeMax: 0,
+    amenities: [],
+    specialRestrictions: '',
+    alcohol: '',
+    address: '',
+    coords: []
+  };
+
+
+  Venue.findOne({src: req.params.name})
   .exec(function(err, venue){
     if(err){
       sendJsonResponse(res, 404, {'error': 'could not find object'});
       
     } else {
-      sendJsonResponse(res, 200, venue);
+        ven.name = venue.name;
+        ven._id = venue._id;
+        ven.images = venue.images;
+        ven.bookedDates = venue.bookedDates;
+        ven.reviews = venue.reviews;
+        ven.description = venue.description;
+        ven.styles = venue.styles;
+        ven.services = venue.services;
+        ven.capacity = venue.capacity;
+        ven.timeRestrictions = venue.timeRestrictions;
+        ven.rentalFees = venue.rentalFees;
+        ven.rentalFeeMax = venue.rentalFeeMax;
+        ven.rentalFeeMin = venue.rentalFeeMin;
+        ven.amenities = venue.amenities;
+        ven.specialRestrictions = venue.specialRestrictions;
+        ven.alcohol = venue.alcohol;
+        ven.address = venue.address;
+        ven.coords = venue.coords;
+      if(!req.session.userId){
+        console.log('no user logged in');
+      } else {
+        User.findOne({_id: req.session.userId})
+        .exec(function(err, user){
+          if(err){
+            sendJsonResponse(res, 404, {'status': 'user could not be found'});
+          }
+          for(var i = 0; i < user.likes.length; i++){
+
+              if(user.likes[i]._id.equals(ven._id)){
+                
+                ven['liked'] = true;
+                break;
+                
+              }
+            }
+        });
+
+      }
+      console.log(ven);
+      sendJsonResponse(res, 200, ven);
     }
   });
   
