@@ -77,7 +77,6 @@ Venue.prototype.setImgs = function(el){
 };
 
 Venue.prototype.setLiked = function(el, cb){
-  console.log(this.liked, 'am i liked?');
   console.log(this);
   var $carousel = $(el);
   var heart = '';
@@ -104,8 +103,18 @@ Venue.prototype.like = function(name, cb){
   });
 };
 
-Venue.prototype.setDetails = function(el){
+Venue.prototype.setDetails = function(el, desc){
+  var $desc = $(el);
 
+  var source = '<div id="description-field"> <h3>{{venue-name}}</h3> <p class="address-text"> {{venue-address}} </p> <p class="description-text"> {{venue-description}} </p> <h3>Venue Styles</h3> {{#each styles}} <span class="styles-text"><i class="fa fa-check-circle"></i> {{this}}</span> {{/each}} <h3>Venue Services</h3> {{#each services}} <span class="services-text"><i class="fa fa-check-circle"></i> {{this}}</span> {{/each}} <h3>Wedding Cost</h3> {{rentalFees}} <h3>Notes</h3> {{#if amenities}} <h4>Amenities</h4> {{#each amenities}} <span class="amenities-text"><i class="fa fa-check-circle"></i> {{this}}</span> {{/each}} {{/if}} {{#if specialRestrictions}} <h4>Special Restrictions</h4> <p class="special-text">{{specialRestrictions}}</p> {{/if}} {{#if Alcohol}} <h4>Alcohol</h4> <p class="alcohol-text">{{alcohol}}</p> {{/if}} </div>';
+
+
+  var template = Handlebars.compile(source);
+
+  var context = contextualizeDesc(desc),
+      html= template(context);
+  
+  $desc.html('').append(html);
 };
 
 Venue.prototype.setReviews = function(el){
@@ -115,3 +124,19 @@ Venue.prototype.setReviews = function(el){
 Venue.prototype.setCalendar = function(el){
 
 };
+
+function contextualizeDesc(data){
+  var context = {
+    'venue-name': data.name,
+    'venue-address': data.address,
+    'venue-description': data.description,
+    'styles': data.styles,
+    'services': data.services,
+    'rentalFees': data.rentalFees,
+    'amenities': data.amenities,
+    'specialRestrictions': data.specialRestrictions,
+    'alcohol': data.alcohol
+  };
+
+  return context;
+}

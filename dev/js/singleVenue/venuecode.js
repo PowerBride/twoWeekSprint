@@ -15,6 +15,7 @@ $('document').ready(function(){
 
     venue.setPageName('#venueHeader-title');
     venue.setImgs('img.carousel');
+    venue.setDetails('#singleVenue-description', venue);
 
 
     var $heart = $(venue.setLiked('#singleVenue-carousel'));
@@ -40,7 +41,17 @@ $('document').ready(function(){
       var id = $this.attr('id');
       console.log(id);
 
-
+      switch(id){
+        case 'details':
+          venue.setDetails('#singleVenue-description', venue);
+          break;
+        case 'reviews':
+          $('#singleVenue-description').html('REVIEWS will go here');
+          break;
+        case 'calendar':
+          $('#singleVenue-description').html('Calendar will go here');
+          break;
+      }
 
       if(!$this.hasClass('active')){
         $this.toggleClass('active').append(carrow);
