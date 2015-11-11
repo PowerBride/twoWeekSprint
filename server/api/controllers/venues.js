@@ -331,3 +331,38 @@ module.exports.setLike = function(req, res){
     });
   }
 };
+
+module.exports.setSingleVenueLike = function(req, res){
+  if(!req.session.userId){
+    sendJsonResponse(res, 404, {'error': 'user not logged in'});
+  } else {
+    
+    User.findOne({_id: req.session.userId})
+    .exec(function(err, user){
+      if(err){
+        sendJsonResponse(res, 404, {'status': 'user could not be found'});
+      }
+      console.log(user, 'aha');
+      var arr = user.likes;
+      var pos = arr.indexOf(req.body.src);
+      console.log('pos', pos);
+      if(pos === -1){
+        Venue.findOne({src: req.body.src})
+        .exec(function(err, venue){
+          if(err){
+            sendJsonResponse(res, 400, {'status': 'venue with provided ID could not be found'});
+          }
+          console.log('venue', venue);
+          user.likes.push(venue);
+          user.save();
+          sendJsonResponse(res, 200, {'status': 'complete', 'likes': user.likes});
+
+        });
+      } else {
+        arr.splice(pos, 1);
+        user.save();
+        sendJsonResponse(res, 200, {'status': 'complete', 'likes': user.likes});
+      }
+    });
+  }
+};

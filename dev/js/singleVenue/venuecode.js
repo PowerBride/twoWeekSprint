@@ -10,6 +10,7 @@ $('document').ready(function(){
   var venueName = pathName(href);
 
   var venue = new Venue();
+
   venue.getVenue(venueName, function(){
 
     venue.setPageName('#venueHeader-title');
@@ -24,6 +25,9 @@ $('document').ready(function(){
       venue.liked = !venue.liked;
       console.log(venue.liked);
 
+      venue.like(venueName, function(el){
+        console.log(el);
+      });
     });
     
   });

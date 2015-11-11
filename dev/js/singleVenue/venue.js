@@ -76,7 +76,7 @@ Venue.prototype.setImgs = function(el){
   });
 };
 
-Venue.prototype.setLiked = function(el){
+Venue.prototype.setLiked = function(el, cb){
   console.log(this.liked, 'am i liked?');
   console.log(this);
   var $carousel = $(el);
@@ -92,6 +92,16 @@ Venue.prototype.setLiked = function(el){
   $carousel.append(heart);
 
   return '#single-venue-heart';
+};
+
+Venue.prototype.like = function(name, cb){
+  var obj = {
+    src: name
+  };
+  
+  $.post('/api/venues/like', obj, function(data){
+    cb(data);
+  });
 };
 
 Venue.prototype.setDetails = function(el){
