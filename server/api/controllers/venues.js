@@ -179,6 +179,7 @@ module.exports.getSingle = function(req, res){
 };
 
 module.exports.getLikes = function(req, res){
+
   if(!req.session.userId){
     sendJsonResponse(res, 400, {'error': 'user not logged in'});
   } else {
@@ -196,8 +197,7 @@ module.exports.getLikes = function(req, res){
         likes: user.likes
       };
 
-      console.log("UUUUUSERRRRR", yser);
-      sendJson(res, 200, yser);
+      sendJsonResponse(res, 200, yser);
     });
   }
 };

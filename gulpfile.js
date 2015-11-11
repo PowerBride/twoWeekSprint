@@ -134,6 +134,6 @@ function icons(){
 function watch(){
   var js = paths.dev + '/js/**/*';
   var scss = paths.dev + '/stylesheets/**/*';
-  gulp.watch(js, scripts);
+  gulp.watch(js, gulp.parallel(scripts, singleScripts, venuesScripts, likesScripts));
   gulp.watch(scss, styles);
 }

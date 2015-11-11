@@ -282,7 +282,7 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
       }
     }
   }
-
+  console.log('resArr', resArr);
   return resArr;
 };
 
@@ -312,6 +312,8 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
   var i = 0,
       els = $(el),
       arr = [];
+
+  console.log(els);
 
   for(i; i < els.length; i++){
     if(els[i].checked){
@@ -367,7 +369,7 @@ Venues.prototype.getVenuesByLocation = function(location, cb){
 Venues.prototype.getLikes = function(cb){
   var that = this;
   $.get('/api/venues/likes', function(data){
-    that.likes = data;
+    that.likes = data.likes;
     console.log('this', that);
 
     cb();

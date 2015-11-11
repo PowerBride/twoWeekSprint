@@ -73,7 +73,7 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
       }
     }
   }
-
+  console.log('resArr', resArr);
   return resArr;
 };
 

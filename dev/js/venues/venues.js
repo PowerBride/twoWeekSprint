@@ -33,7 +33,7 @@ Venues.prototype.getVenuesByLocation = function(location, cb){
 Venues.prototype.getLikes = function(cb){
   var that = this;
   $.get('/api/venues/likes', function(data){
-    that.likes = data;
+    that.likes = data.likes;
     console.log('this', that);
 
     cb();

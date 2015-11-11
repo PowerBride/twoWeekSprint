@@ -22,6 +22,8 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
       els = $(el),
       arr = [];
 
+  console.log(els);
+
   for(i; i < els.length; i++){
     if(els[i].checked){
       if(type === 'capacity'){

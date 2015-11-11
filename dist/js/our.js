@@ -282,7 +282,7 @@ Filter.prototype.applyFilter = function(arr, type, filterList){
       }
     }
   }
-
+  console.log('resArr', resArr);
   return resArr;
 };
 
@@ -312,6 +312,8 @@ venueFilterFuncs.prototype.checkOptions = function(el, type){
   var i = 0,
       els = $(el),
       arr = [];
+
+  console.log(els);
 
   for(i; i < els.length; i++){
     if(els[i].checked){
@@ -487,7 +489,7 @@ $(document).ready(function(){
 
 
    venues.getLikes(function(){
-    console.log(venues, 'VENUE');
+
     createLikeList();
 
 
@@ -585,8 +587,8 @@ $(document).ready(function(){
     filter.empty.call(venues, 'list');
     clean('#venues-likes');
 
-    venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
-    venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
+    venues.styles = venFilter.checkOptions('.styles-likes-checkbox', 'styles');
+    venues.maxCap = venFilter.checkOptions('.capacity-likes-radio', 'capacity');
 
     var arr1 = [];
     var arr2 = [];
@@ -597,7 +599,9 @@ $(document).ready(function(){
     var $venue;
     var $i;
 
-    arr1 = filter.applyFilter(venues.likes, 'maxCap', venues.maxCap);
+    console.log(venues, 'venues');
+
+    arr1 = filter.applyFilter(venues.likes, 'capacity', venues.maxCap);
 
     arr2 = filter.applyFilter(venues.likes, 'styles', venues.styles);
     
@@ -682,7 +686,7 @@ Venues.prototype.getVenuesByLocation = function(location, cb){
 Venues.prototype.getLikes = function(cb){
   var that = this;
   $.get('/api/venues/likes', function(data){
-    that.likes = data;
+    that.likes = data.likes;
     console.log('this', that);
 
     cb();

@@ -14,7 +14,7 @@ $(document).ready(function(){
 
 
    venues.getLikes(function(){
-    console.log(venues, 'VENUE');
+
     createLikeList();
 
 
@@ -112,8 +112,8 @@ $(document).ready(function(){
     filter.empty.call(venues, 'list');
     clean('#venues-likes');
 
-    venues.styles = venFilter.checkOptions('.styles-checkbox', 'styles');
-    venues.maxCap = venFilter.checkOptions('.capacity-radio', 'capacity');
+    venues.styles = venFilter.checkOptions('.styles-likes-checkbox', 'styles');
+    venues.maxCap = venFilter.checkOptions('.capacity-likes-radio', 'capacity');
 
     var arr1 = [];
     var arr2 = [];
@@ -124,7 +124,9 @@ $(document).ready(function(){
     var $venue;
     var $i;
 
-    arr1 = filter.applyFilter(venues.likes, 'maxCap', venues.maxCap);
+    console.log(venues, 'venues');
+
+    arr1 = filter.applyFilter(venues.likes, 'capacity', venues.maxCap);
 
     arr2 = filter.applyFilter(venues.likes, 'styles', venues.styles);
     
