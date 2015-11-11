@@ -197,6 +197,35 @@ module.exports.getLikes = function(req, res){
         likes: user.likes
       };
 
+      var arr = [];
+      for(var i = 0; i < yser.likes.length; i++){
+        var venue = {
+              name: yser.likes[i].name,
+              src: yser.likes[i].src,
+              images: yser.likes[i].images,
+              mainImg: yser.likes[i].mainImg,
+              bookedDates: [],
+              reviews: [],
+              _id: yser.likes[i]._id,
+              description: yser.likes[i].description,
+              styles: yser.likes[i].styles,
+              services: yser.likes[i].services,
+              capacity: yser.likes[i].capacity,
+              timeRestrictions: yser.likes[i].timeRestrictions,
+              rentalFees: yser.likes[i].rentalFees,
+              rentalFeeMin: yser.likes[i].rentalFeeMin,
+              rentalFeeMax: yser.likes[i].rentalFeeMax,
+              amenities: yser.likes[i].amenities,
+              specialRestrictions: yser.likes[i].specialRestrictions,
+              alcohol: yser.likes[i].alcohol,
+              address: yser.likes[i].address,
+              coords: yser.likes[i].coords,
+              liked: true
+            };
+        arr.push(venue);
+      }
+      yser.likes = arr;
+
       sendJsonResponse(res, 200, yser);
     });
   }
