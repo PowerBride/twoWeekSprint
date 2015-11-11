@@ -263,7 +263,7 @@ Venue.prototype.like = function(name, cb){
   });
 };
 
-Venue.prototype.setDetails = function(el, desc){
+Venue.prototype.setDetails = function(el, venue){
   var $desc = $(el);
 
   var source = '<div id="description-field"> <h3>{{venue-name}}</h3> <p class="address-text"> {{venue-address}} </p> <p class="description-text"> {{venue-description}} </p> <h3>Venue Styles</h3> {{#each styles}} <span class="styles-text"><i class="fa fa-check-circle"></i> {{this}}</span> {{/each}} <h3>Venue Services</h3> {{#each services}} <span class="services-text"><i class="fa fa-check-circle"></i> {{this}}</span> {{/each}} <h3>Wedding Cost</h3> {{rentalFees}} <h3>Notes</h3> {{#if amenities}} <h4>Amenities</h4> {{#each amenities}} <span class="amenities-text"><i class="fa fa-check-circle"></i> {{this}}</span> {{/each}} {{/if}} {{#if specialRestrictions}} <h4>Special Restrictions</h4> <p class="special-text">{{specialRestrictions}}</p> {{/if}} {{#if Alcohol}} <h4>Alcohol</h4> <p class="alcohol-text">{{alcohol}}</p> {{/if}} </div>';
@@ -271,14 +271,18 @@ Venue.prototype.setDetails = function(el, desc){
 
   var template = Handlebars.compile(source);
 
-  var context = contextualizeDesc(desc),
+  var context = contextualizeDesc(venue),
       html= template(context);
   
   $desc.html('').append(html);
 };
 
-Venue.prototype.setReviews = function(el){
+Venue.prototype.setReviews = function(el, reviews){
+  var $detail = $(el);
+  var source = '<div>this is where the reviews will go <p>this is all i want </p><p>5 stars </p></div>';
 
+
+  $detail.html('').append(source);
 };
 
 Venue.prototype.setCalendar = function(el){
@@ -358,7 +362,7 @@ $('document').ready(function(){
           venue.setDetails('#singleVenue-description', venue);
           break;
         case 'reviews':
-          $('#singleVenue-description').html('REVIEWS will go here');
+          venue.setReviews('#singleVenue-description', venue.reviews);
           break;
         case 'calendar':
           $('#singleVenue-description').html('Calendar will go here');

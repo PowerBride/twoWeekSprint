@@ -46,7 +46,7 @@ $('document').ready(function(){
           venue.setDetails('#singleVenue-description', venue);
           break;
         case 'reviews':
-          $('#singleVenue-description').html('REVIEWS will go here');
+          venue.setReviews('#singleVenue-description', venue.reviews);
           break;
         case 'calendar':
           $('#singleVenue-description').html('Calendar will go here');
