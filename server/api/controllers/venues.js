@@ -195,6 +195,8 @@ module.exports.getLikes = function(req, res){
         picture: user.picture,
         likes: user.likes
       };
+
+      console.log("UUUUUSERRRRR", yser);
       sendJson(res, 200, yser);
     });
   }

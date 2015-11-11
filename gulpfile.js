@@ -23,7 +23,7 @@ gulp.task('build production', gulp.series(
 //won't minify the js for easier bug-fixing
 gulp.task('build', gulp.series(
   clean,
-  gulp.parallel(scripts, bowerScripts, styles, bowerStyles, icons)
+  gulp.parallel(scripts, singleScripts, bowerScripts, styles, venuesScripts, likesScripts, bowerStyles, icons)
 ));
 
 // The default task (called when you run `gulp` from cli)
@@ -45,6 +45,24 @@ function clean() {
 function scripts(){
   return gulp.src(paths.dev + '/js/**/*.js')
   .pipe(concat('our.js'))
+  .pipe(gulp.dest(paths.dist + '/js'));
+}
+
+function singleScripts(){
+  return gulp.src([paths.dev + '/js/**/*.js', '!dev/js/base.js', '!dev/js/venues/likes.js'])
+  .pipe(concat('single.js'))
+  .pipe(gulp.dest(paths.dist + '/js'));
+}
+
+function venuesScripts(){
+  return gulp.src([paths.dev + '/js/**/*.js', '!dev/js/singleVenue/*.js', '!dev/js/venues/likes.js'])
+  .pipe(concat('venues.js'))
+  .pipe(gulp.dest(paths.dist + '/js'));
+}
+
+function likesScripts(){
+  return gulp.src([paths.dev + '/js/**/*.js', '!dev/js/singleVenue/*.js', '!dev/js/base.js'])
+  .pipe(concat('likes.js'))
   .pipe(gulp.dest(paths.dist + '/js'));
 }
 
@@ -104,7 +122,7 @@ function bowerScripts() {
 function bowerStyles(){
   return gulp.src([paths.bower + '/font-awesome/css/font-awesome.css', paths.bower + '/semantic/dist/semantic.css', paths.bower + '/slick-carousel/slick/slick.css', paths.bower + '/slick-carousel/slick/slick-theme.css', paths.bower + '/jquery-ui/themes/base/datepicker.css']) //if bootstrap is used, add it in here as well
   .pipe(concat('vendor.css'))
-  .pipe(minifyCSS())
+  // .pipe(minifyCSS())
   .pipe(gulp.dest(paths.dist+ '/styles'));
 }
 

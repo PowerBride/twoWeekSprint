@@ -14,6 +14,7 @@ $(document).ready(function(){
 
 
    venues.getLikes(function(){
+    console.log(venues, 'VENUE');
     createLikeList();
 
 
@@ -107,14 +108,6 @@ $(document).ready(function(){
   });
 
 
-
-
-
-
-
-
-
-
   function createLikeList(){
     filter.empty.call(venues, 'list');
     clean('#venues-likes');
@@ -169,6 +162,9 @@ $(document).ready(function(){
         var id = $this.parent().attr('id');
         venues.setLiked(id, 'likes', function(){
           toggleLiked($this);
+          venues.like(id, function(el){
+            console.log(el);
+          });
         });
                
       });

@@ -34,6 +34,7 @@ Venues.prototype.getLikes = function(cb){
   var that = this;
   $.get('/api/venues/likes', function(data){
     that.likes = data;
+    console.log('this', that);
 
     cb();
   });
