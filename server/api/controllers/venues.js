@@ -367,3 +367,32 @@ module.exports.setSingleVenueLike = function(req, res){
     });
   }
 };
+
+module.exports.delete = function(req, res){
+   var srcs = req.params.src;
+
+   if(srcs){
+    Venue.findOne({src: srcs}).remove(function(){
+      sendJsonResponse(res, 200, {'status': 'removed'});
+    });
+   }
+};
+
+// module.exports.deleteSingle = function(req, res){
+//   var id = req.params.id;
+
+//   if(id){
+//     bpModel.findByIdAndRemove(id)
+//     .exec(
+//       function(err, entry){
+//         if(err){
+//           sendJsonResponse(res, 404, err);
+//           return;
+//         }
+//         sendJsonResponse(res, 204, entry);
+//       });
+//   } else {
+//     sendJsonResponse(res, 404, {'message': 'no id provided'});
+//   }
+//   sendJsonResponse(res, 200, {"status": "success"});
+// };

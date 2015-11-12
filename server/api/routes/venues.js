@@ -7,6 +7,7 @@ var venuesCtrl = require('../controllers/venues');
 router.get('/likes', venuesCtrl.getLikes);
 router.get('/venues', venuesCtrl.getAll);
 router.get('/:name', venuesCtrl.getSingle);
+router.delete('/:src', venuesCtrl.delete);
 
 router.get('/location/:location', venuesCtrl.getLocation);
 
