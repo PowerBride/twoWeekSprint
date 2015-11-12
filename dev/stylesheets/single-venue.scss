@@ -1,6 +1,8 @@
 $background: white;
 $body: #f2f2f2;
 $red: #e0656d;
+$star: #fad532;
+$font: #63615f;
 
 #single-venue-heart{
   position: absolute;
@@ -97,6 +99,38 @@ $red: #e0656d;
         margin: 0 -6%;
         background: $body;
         border-radius: 10px;
+        .review-field {
+        }
+        .fa-star {
+          color: $star;
+        }
+        .fa-star-o {
+          color: $star;
+        }
+        .reviews-number{
+          color: $font;
+          padding: 0 0 30px;
+        }
+        .review {
+          color: $font;
+          padding: 20px 0px 40px;
+          border-top: 2px solid $font;
+        }
+        .review-text {
+          color: $font;
+          padding: 0 0 75px;
+          img {
+            margin: 0 auto;
+            display: block;
+            width: 100px;
+            height: 100px;
+          }
+          .username{
+            display: block;
+            margin: 10px auto;
+            text-align: center;
+          }
+        }
       }
     }
     

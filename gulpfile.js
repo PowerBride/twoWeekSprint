@@ -23,7 +23,7 @@ gulp.task('build production', gulp.series(
 //won't minify the js for easier bug-fixing
 gulp.task('build', gulp.series(
   clean,
-  gulp.parallel(scripts, singleScripts, bowerScripts, styles, venuesScripts, likesScripts, bowerStyles, icons)
+  gulp.parallel(scripts, singleScripts, bowerScripts, styles, venuesScripts, likesScripts, bowerStyles, icons, images)
 ));
 
 // The default task (called when you run `gulp` from cli)
@@ -40,6 +40,11 @@ function clean() {
   // You can use multiple globbing patterns as you would with `gulp.src`
   // If you are using del 2.0 or above, return its promise
   return del(['dist']);
+}
+
+function images(){
+  return gulp.src(paths.dev + '/images/**/*')
+  .pipe(gulp.dest(paths.dist + '/images'));
 }
 
 function scripts(){
