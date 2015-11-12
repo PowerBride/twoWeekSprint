@@ -14,6 +14,7 @@ var User = require('./api/models/user');
 var apiVenuesRoutes = require('./api/routes/venues');
 var venuesRoutes = require('./routes/venues');
 var apiUserRoutes = require('./api/routes/user');
+var apiReviewsRoutes = require('./api/routes/reviews');
 // var bluePrintModelRoutes = require('./api/routes/bluePrintModel');
 
 var app = express();
@@ -64,7 +65,7 @@ app.use('/', routes);
 app.use('/venues', venuesRoutes);
 app.use('/api/venues', apiVenuesRoutes);
 app.use('/api/users', apiUserRoutes);
-// app.use('/api/blueprintmodel', bluePrintModelRoutes);
+app.use('/api/reviews', apiReviewsRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

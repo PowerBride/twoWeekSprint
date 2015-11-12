@@ -14,4 +14,5 @@ var reviewSchema = new Schema({
     createdOn: {type: Date, "default": Date.now}
 });
 
-mongoose.model('Review', reviewSchema);
+var Review = mongoose.model('Review', reviewSchema);
+module.exports = Review;
