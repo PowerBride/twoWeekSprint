@@ -67,6 +67,7 @@ $font: rgb(100,100,100);
     border: 1px solid $font !important;
     border-radius: 5px !important;
     color: $font;
+    left: -100px
   }
 
   #menu-styles-options{
@@ -74,8 +75,9 @@ $font: rgb(100,100,100);
     opacity: 0;
     position: absolute;
     top: 14px;
-    left: 19px;
-    width: 150px;
+    left: -80px;
+    width: 210px;
+    min-width: 210px;
     background: $background;
     border: 1px solid $font;
     border-radius: 5px;
@@ -106,6 +108,7 @@ $font: rgb(100,100,100);
     border: 1px solid $font;
     border-radius: 5px !important;
     color: $font;
+    right: -80px;
   }
   #menu-capacity-options{
     display: none;
@@ -117,6 +120,7 @@ $font: rgb(100,100,100);
     background: $background;
     border: 1px solid $font;
     border-radius: 5px;
+    left: 100px;
 
     input[type=radio] {
       display: none;
@@ -142,6 +146,7 @@ $font: rgb(100,100,100);
     border: 1px solid $font !important;
     border-radius: 5px !important;
     color: $font;
+    left: -100px;
   }
 
   #menu-likes-styles-options{
@@ -149,8 +154,9 @@ $font: rgb(100,100,100);
     opacity: 0;
     position: absolute;
     top: 14px;
-    left: 19px;
-    width: 150px;
+    left: -80px;
+    width: 210px;
+    min-width: 210px;
     background: $background;
     border: 1px solid $font;
     border-radius: 5px;
@@ -181,6 +187,7 @@ $font: rgb(100,100,100);
     border: 1px solid $font;
     border-radius: 5px !important;
     color: $font;
+    right: -80px;
   }
   #menu-likes-capacity-options{
     display: none;
@@ -192,6 +199,7 @@ $font: rgb(100,100,100);
     background: $background;
     border: 1px solid $font;
     border-radius: 5px;
+    left: 100px;
 
     input[type=radio] {
       display: none;
