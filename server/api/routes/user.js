@@ -10,7 +10,7 @@ var userCtrl = require('../controllers/user');
 // router.put('/:id', venuesCtrl.updateSingle);
 // router.delete('/:id', venuesCtrl.deleteSingle);
 
-router.post('/users', userCtrl.createUser);
+router.post('/', userCtrl.createUser);
 router.post('/sessions', userCtrl.login);
 router.get('/user', userCtrl.showProfile);
 router.get('/users', userCtrl.getAll);
