@@ -279,10 +279,14 @@ Venue.prototype.setDetails = function(el, venue){
 
 Venue.prototype.setReviews = function(el, reviews){
   var $detail = $(el);
-  var source = '<div>this is where the reviews will go <p>this is all i want </p><p>5 stars </p></div>';
+  var source = '<div id="ui one column grid review-field"> <div id="sixteen wide column reviews-number"> <span>{{reviews-number}}</span> reviews <span class="reviews-stars">{{#each reviews-average-full}}<i class="fa fa-star"></i>{{/each}}{{#each reviews-average-not}}<i class="fa fa-star-o"></i>{{/each}}</span> </div> {{#each review}} <div class="review"> <div class="ui three column grid review-number"> <div class="five wide column rating"> Location <span class="reviews-stars">{{#each location-full}}<i class="fa fa-star"></i>{{/each}}{{#each location-empty}}<i class="fa fa-star-o"></i>{{/each}}</span> </div> <div class="five wide column rating"> Service <span class="reviews-stars">{{#each service-full}}<i class="fa fa-star"></i>{{/each}}{{#each service-empty}}<i class="fa fa-star-o"></i>{{/each}}</span> </div> <div class="five wide column rating"> Support <span class="reviews-stars">{{#each support-full}}<i class="fa fa-star"></i>{{/each}}{{#each support-empty}}<i class="fa fa-star-o"></i>{{/each}}</span> </div> </div> <div class="ui three column grid review-number"> <div class="five wide column rating"> Cleanliness <span class="reviews-stars">{{#each cleanliness-full}}<i class="fa fa-star"></i>{{/each}}{{#each cleanliness-empty}}<i class="fa fa-star-o"></i>{{/each}}</span> </div> <div class="five wide column rating"> Value <span class="reviews-stars">{{#each value-full}}<i class="fa fa-star"></i>{{/each}}{{#each value-empty}}<i class="fa fa-star-o"></i>{{/each}}</span> </div> <div class="five wide column rating"> Communication <span class="reviews-stars">{{#each communication-full}}<i class="fa fa-star"></i>{{/each}}{{#each communication-empty}}<i class="fa fa-star-o"></i>{{/each}}</span> </div> </div> </div> <div class="ui two column grid review-text"> <div class="left floated four wide column user"> <img class="ui avatar image" src="/images/wireframe/square-image.png"> <span class="username">{{username}}</span> </div> <div class="right floated ten wide column review-text"> <p>{{review-text}}</p> </div> </div> </div> {{/each}}';
 
+  var template = Handlebars.compile(source);
+  
+  var context = contextualizeReviews(reviews),
+      html= template(context);
 
-  $detail.html('').append(source);
+  $detail.html('').append(html);
 };
 
 Venue.prototype.setCalendar = function(el){
@@ -303,6 +307,70 @@ function contextualizeDesc(data){
   };
 
   return context;
+}
+
+function contextualizeReviews(data){
+  var sum = 0,
+      average = 0,
+      full = [],
+      empty = [];
+
+  for(var i = 0; i < data.length; i++){
+    sum += data[i].rating;
+  }
+
+  average = Math.floor(sum/data.length);
+
+  full = stars(average);
+  empty = stars(5 - average);
+
+  var context = {
+    "reviews-number": average,
+    "reviews-average-full": full,
+    "reviews-average-not": empty,
+    "review": []
+  };
+
+  for(var j = 0; j<data.length; j++){
+
+    var rev = {
+      "location-full": stars(data[j].locationRating),
+      "location-empty": stars(5 - data[j].locationRating),
+      "service-full": stars(data[j].serviceRating),
+      "service-empty": stars(5 - data[j].serviceRating),
+      "support-full": stars(data[j].supportRating),
+      "support-empty": stars(5 - data[j].supportRating),
+      "cleanliness-full": stars(data[j].cleanlinessRating),
+      "cleanliness-empty": stars(5 - data[j].cleanlinessRating),
+      "value-full": stars(data[j].valueRating),
+      "value-empty": stars(5 - data[j].valueRating),
+      "communication-full": stars(data[j].communicationRating),
+      "communication-empty": stars(data[j].communicationRating),
+      "username": data[j].author,
+      "review-text": data[j].reviewText
+    };
+
+    context.review.push(rev);
+  }
+
+ return context;
+}
+
+function stars(input){
+  switch(input){
+    case 0:
+      return [];
+    case 1:
+      return [0];
+    case 2:
+      return [0,0];
+    case 3:
+      return [0,0,0];
+    case 4:
+      return [0,0,0,0];
+    case 5:
+      return [0,0,0,0,0];
+  }
 }
 $('document').ready(function(){
 

@@ -188,6 +188,7 @@ module.exports.getSingle = function(req, res){
 
 
   Venue.findOne({src: req.params.name})
+  .populate('reviews')
   .exec(function(err, venue){
     if(err){
       sendJsonResponse(res, 404, {'error': 'could not find object'});
