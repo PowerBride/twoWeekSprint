@@ -17,7 +17,7 @@ var venueSchema = new Schema({
     rentalFeeMin: Number,
     rentalFeeMax: Number,
     amenities: [String],
-    specialRestrictions: String,
+    specialRestrictions: [String],
     alcohol: String,
     address: String,
     coords: {type: [Number], index: '2dsphere'}
