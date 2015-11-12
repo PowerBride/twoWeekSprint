@@ -99,6 +99,26 @@ $font: #63615f;
         margin: 0 -6%;
         background: $body;
         border-radius: 10px;
+        #description-field {
+          color: $font;
+          h3 {
+            color: black;
+            font-size: 1.1em;
+            margin: 5px 0 -2px;
+            &.notes {
+              padding-top: 50px;
+            }
+          }
+          h4 {
+            color: black;
+            opacity: .7;
+            font-size: 1.1em;
+            margin: 10px 0 -2px;
+          }
+          div {
+            padding: 5px 0 20px;
+          }
+        }
         .review-field {
         }
         .fa-star {
