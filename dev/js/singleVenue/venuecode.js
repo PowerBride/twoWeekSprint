@@ -49,7 +49,7 @@ $('document').ready(function(){
           venue.setReviews('#singleVenue-description', venue.reviews);
           break;
         case 'calendar':
-          $('#singleVenue-description').html('Calendar will go here');
+          venue.setCal('#singleVenue-description', venue);
           break;
       }
 

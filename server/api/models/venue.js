@@ -6,7 +6,7 @@ var venueSchema = new Schema({
     src: {type: String, required: true},
     images: [String],
     mainImg: {type: String, required: true},
-    bookedDates: [Date],
+    bookedDates: [String],
     reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}],
     description: String,
     styles: [String],

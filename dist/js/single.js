@@ -263,6 +263,29 @@ Venue.prototype.like = function(name, cb){
   });
 };
 
+Venue.prototype.setCal = function(el, venue){
+  var $cal = $(el);
+  console.log('HA');
+  console.log('meow', $cal, '');
+
+  var source = '<div style="height:700px;"><p>Date:</p> <div id="datepicker"></div></div>';
+
+  $cal.html('').append(source);
+
+
+  $( "#datepicker" ).datepicker({
+    numberOfMonths: [2,2],
+    beforeShowDay: function(date){
+        var string = jQuery.datepicker.formatDate('mm/dd/yy', date);
+        return [ venue.bookedDates.indexOf(string) == -1 ];
+    }
+  });
+
+  $("#datepicker").on('change', function(el){
+    console.log($(this).val());
+  });
+};
+
 Venue.prototype.setDetails = function(el, venue){
   var $desc = $(el);
 
@@ -433,7 +456,7 @@ $('document').ready(function(){
           venue.setReviews('#singleVenue-description', venue.reviews);
           break;
         case 'calendar':
-          $('#singleVenue-description').html('Calendar will go here');
+          venue.setCal('#singleVenue-description', venue);
           break;
       }
 

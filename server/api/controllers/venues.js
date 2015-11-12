@@ -40,7 +40,7 @@ module.exports.create = function(req, res){
     src: req.body.src,
     images: req.body.images,
     mainImg: req.body.mainImg,
-    bookedDates: [],
+    bookedDates: req.body.bookedDates,
     reviews: [],
     description: req.body.description,
     styles: req.body.styles,
