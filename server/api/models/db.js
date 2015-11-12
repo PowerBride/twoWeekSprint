@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 
-var config = require('../../config');
+var config = require('../../../config');
 
 var user = config.mongolab_username();
 var password = config.mongolab_password();
 var uri = config.mongolab_uri();
-var mongolabUri = 'mongodb://' + user + ':' + password + uri;
 
+var mongolabUri = 'mongodb://' + user + ':' + password + '@' + uri;
 var app = 'powerbride';
 var URI = 'mongodb://localhost/' + app;
 
