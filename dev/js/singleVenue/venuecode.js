@@ -14,7 +14,7 @@ $('document').ready(function(){
   venue.getVenue(venueName, function(){
 
     venue.setPageName('#venueHeader-title');
-    venue.setImgs('img.carousel');
+    venue.setImgs('#carousel');
     venue.setDetails('#singleVenue-description', venue);
 
 

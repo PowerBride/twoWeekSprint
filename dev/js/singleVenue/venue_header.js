@@ -4,6 +4,4 @@ $('document').ready(function(){
     .sticky()
   ;
 
-  $('.singleVenue-carousel').slick();
-
 });

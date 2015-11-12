@@ -217,23 +217,49 @@ Venue.prototype.setPageName = function(el){
 
 //rewrite so that it can hold more than just three images
 // do so by appending an actual image div rather than just changing the source of the ones in it
+// Venue.prototype.setImgs = function(el){
+//   var $carousel = $(el);
+//   var i = this.images.length - 1;
+//   var length = this.images.length - 1;
+
+//   var that = this;
+
+//   $carousel.each(function(){
+
+//   $(this).attr('src', that.images[i]);
+
+//   if(i === length){
+//     i = 0;
+//   } else {
+//     i++;
+//   }
+//   });
+// };
+
 Venue.prototype.setImgs = function(el){
   var $carousel = $(el);
   var i = this.images.length - 1;
   var length = this.images.length - 1;
+  var j = 0;
 
   var that = this;
+  var html;
 
-  $carousel.each(function(){
+  for(j; j < length + 1; j++){
+    html = "<div class='venue-carouselImg'><img class='carousel' src="+ that.images[i] + " alt=''></div>";
 
-  $(this).attr('src', that.images[i]);
-
-  if(i === length){
-    i = 0;
-  } else {
-    i++;
+    $carousel.append(html);
+    
+    console.log('append!');
+    
+    if(i === length){
+      i = 0;
+    } else {
+      i++;
+    }
   }
-  });
+
+  $('.singleVenue-carousel').slick();
 };
 
 Venue.prototype.setLiked = function(el, cb){
@@ -401,8 +427,6 @@ $('document').ready(function(){
     .sticky()
   ;
 
-  $('.singleVenue-carousel').slick();
-
 });
 
 $('document').ready(function(){
@@ -421,7 +445,7 @@ $('document').ready(function(){
   venue.getVenue(venueName, function(){
 
     venue.setPageName('#venueHeader-title');
-    venue.setImgs('img.carousel');
+    venue.setImgs('#carousel');
     venue.setDetails('#singleVenue-description', venue);
 
 
