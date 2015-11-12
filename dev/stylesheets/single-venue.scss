@@ -3,6 +3,10 @@ $body: #f2f2f2;
 $red: #e0656d;
 $star: #fad532;
 $font: #63615f;
+$calendar-available: #bae88b;
+$calendar-taken: #f58e69;
+$calendar-selected: #fad532;
+$calendar-font: #f2f2f2;
 
 #single-venue-heart{
   position: absolute;
@@ -149,6 +153,53 @@ $font: #63615f;
             display: block;
             margin: 10px auto;
             text-align: center;
+          }
+        }
+        
+        #datepicker{
+          .ui-datepicker{
+              width: 90% !important;
+              display: block;
+              margin: 0 auto !important;
+              span {
+                &.ui-icon {
+                  color: $red;
+                  cursor: pointer;
+                }
+                
+              }
+              .ui-datepicker-group {
+                width: 44%;
+                margin: 0 3%;
+                table{
+                  margin: 10px auto 20px;
+                  td {
+                    padding: 4px;
+                    border: 2px solid $body;
+                    background: $calendar-available;
+                    color: $calendar-font;
+                    a {
+                      color: $calendar-font;
+                      }
+                    &.ui-datepicker-unselectable {
+                      background: $calendar-taken;
+                    }
+                    &.ui-datepicker-other-month {
+                      background: transparent;
+                    }
+                    &.ui-datepicker-current-day {
+                      background: $calendar-selected;
+                    }
+                    &:hover {
+                      background: $calendar-selected;
+                    }
+                  }
+                  thead {
+                    display:none;
+                  }
+                }
+                
+            }
           }
         }
       }

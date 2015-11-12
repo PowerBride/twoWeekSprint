@@ -294,7 +294,7 @@ Venue.prototype.setCal = function(el, venue){
   console.log('HA');
   console.log('meow', $cal, '');
 
-  var source = '<div style="height:700px;"><p>Date:</p> <div id="datepicker"></div></div>';
+  var source = '<div style="pading: 20px 0;"><div id="datepicker"></div></div>';
 
   $cal.html('').append(source);
 
